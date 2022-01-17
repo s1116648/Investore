@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import nl.hsleiden.investore.ui.login.LoginActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,5 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToNavigation(View view) {
         startActivity(new Intent(this, NavigationActivity.class));
+    }
+
+    public void goToLogin(View view) {
+        startActivity(new Intent(this, LoginActivity.class));
     }
 }
