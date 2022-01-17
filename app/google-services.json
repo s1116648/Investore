@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "790549541880",
+    "project_id": "investore-1eb78",
+    "storage_bucket": "investore-1eb78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790549541880:android:fc9aa369cb62b8cca11c0d",
+        "android_client_info": {
+          "package_name": "nl.hsleiden.investore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790549541880-d65qd447ugs4c3iie0g5uqp20b06ffmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTaGrU0HVQdjbTrXUTZxs-do6lEvUYg3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790549541880-d65qd447ugs4c3iie0g5uqp20b06ffmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
