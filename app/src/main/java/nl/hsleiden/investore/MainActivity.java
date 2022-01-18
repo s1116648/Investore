@@ -1,14 +1,20 @@
 package nl.hsleiden.investore;
 
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import java.util.UUID;
+
+import nl.hsleiden.investore.data.model.Item;
 import nl.hsleiden.investore.ui.login.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
