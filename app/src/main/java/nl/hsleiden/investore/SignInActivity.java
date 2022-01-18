@@ -46,7 +46,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("790549541880-d65qd447ugs4c3iie0g5uqp20b06ffmd.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
@@ -59,16 +59,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     protected void onStart() {
         super.onStart();
 
-//        // Check for existing Google Sign In account, if the user is already signed in
-//        // the GoogleSignInAccount will be non-null.
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-//        updateUI(account);
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        updateUI(account);
 
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUIWithFBUser(currentUser); // ToDo
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        updateUIWithFBUser(currentUser); // ToDo
 
-        Log.d(TAG, "onStart: " + currentUser);
+//        Log.d(TAG, "onStart: " + currentUser);
     }
 
     @Override
@@ -115,6 +115,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void updateUI(GoogleSignInAccount account) {
+
+        Log.d(TAG, "updateUI: account: " + account);
+        if (account == null) {
+            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.logout_button).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+            findViewById(R.id.logout_button).setVisibility(View.VISIBLE);
+        }
+        // ToDo
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
@@ -154,6 +164,20 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
+//        FirebaseAuth.getInstance().signOut();
+        Log.d(TAG, "logout: ");
+        Log.d(TAG, "logout: " + mAuth);
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // [START_EXCLUDE]
+                        updateUI(null);
+                        // [END_EXCLUDE]
+                    }
+                });
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        updateUI(account);
     }
 }
