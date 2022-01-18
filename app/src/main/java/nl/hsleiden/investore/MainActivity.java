@@ -63,4 +63,8 @@ public class MainActivity extends AppCompatActivity {
     public void goToSignIn(View view) {
         startActivity(new Intent(this, SignInActivity.class));
     }
+
+    public void goToDatabaseTest(View view) {
+        startActivity(new Intent(this, DatabaseTestActivity.class));
+    }
 }

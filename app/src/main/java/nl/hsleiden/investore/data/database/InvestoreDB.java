@@ -62,4 +62,16 @@ public class InvestoreDB extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         return sqLiteDatabase.insert(TABLE_NAME, null, contentValues) != -1;
     }
+
+    // ToDo needs testing
+    public void removeItem(Item item) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete(TABLE_NAME, COLUMN_ITEM_ID + "=?", new String[]{item.getID()});
+    }
+
+
+    public void clearItems() {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL("delete from "+ TABLE_NAME);
+    }
 }
