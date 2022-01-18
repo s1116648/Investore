@@ -11,8 +11,8 @@ public class Item {
     private String entryDate;
     private String sellDate;
     private boolean sold;
-    private int buyPrice;
-    private int sellPrice;
+    private double buyPrice;
+    private double sellPrice;
 
     public Item(String name, String notes, String entryDate, int buyPrice) {
         this.ID = UUID.randomUUID().toString(); // generates an unique id
@@ -23,7 +23,7 @@ public class Item {
         this.buyPrice = buyPrice;
     }
 
-    public Item(String ID, String name, String notes, String entryDate, String sellDate, boolean sold, int buyPrice, int sellPrice) {
+    public Item(String ID, String name, String notes, String entryDate, String sellDate, boolean sold, double buyPrice, double sellPrice) {
         this.ID = ID;
         this.name = name;
         this.notes = notes;
@@ -78,7 +78,7 @@ public class Item {
         this.sold = sold;
     }
 
-    public int getBuyPrice() {
+    public double getBuyPrice() {
         return buyPrice;
     }
 
@@ -86,7 +86,7 @@ public class Item {
         this.buyPrice = buyPrice;
     }
 
-    public int getSellPrice() {
+    public double getSellPrice() {
         return sellPrice;
     }
 

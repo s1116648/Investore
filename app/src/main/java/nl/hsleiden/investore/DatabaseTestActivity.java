@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.util.Random;
+import java.util.UUID;
 
+import nl.hsleiden.investore.data.GenerateExampleItems;
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
 
@@ -33,7 +35,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
     }
 
     private Item generateRandomItem() {
-        String id = "1";
+        String id = UUID.randomUUID().toString();
         String name = "Kaas";
         String notes = "";
         String entryDate = "2022-01-18";
@@ -50,5 +52,9 @@ public class DatabaseTestActivity extends AppCompatActivity {
 
     public void removeItem(View view) {
         investoreDB.removeItem(generateRandomItem());
+    }
+
+    public void putExampleItemsInDB(View view) {
+        GenerateExampleItems.insertAllExampleItemsInDB(investoreDB);
     }
 }
