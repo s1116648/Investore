@@ -29,16 +29,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
 
-    private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         createRequest();
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
     }
 
     private void createRequest() {
@@ -49,10 +44,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 .requestIdToken("790549541880-d65qd447ugs4c3iie0g5uqp20b06ffmd.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
+
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-
     }
 
     @Override
@@ -63,12 +58,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         updateUI(account);
-
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUIWithFBUser(currentUser); // ToDo
-
-//        Log.d(TAG, "onStart: " + currentUser);
     }
 
     @Override
@@ -77,7 +66,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.sign_in_button:
                 signIn();
                 break;
-            // ...
         }
     }
 
@@ -115,8 +103,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void updateUI(GoogleSignInAccount account) {
-
-        Log.d(TAG, "updateUI: account: " + account);
         if (account == null) {
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.logout_button).setVisibility(View.GONE);
@@ -126,46 +112,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-//    private void firebaseAuthWithGoogle(String idToken) {
-//        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-//        mAuth.signInWithCredential(credential)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "signInWithCredential:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUIWithFBUser(user);
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-////                            Snackbar.make(mBinding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show(); // ToDo
-//                            updateUI(null);
-//                        }
-//
-//                        // ...
-//                    }
-//                });
-//    }
-
-    private void updateUIWithFBUser(FirebaseUser firebaseUser) {
-        Log.d(TAG, "updateUIWithFBUser: 1");
-        if (firebaseUser == null) {
-            Log.d(TAG, "updateUIWithFBUser: null");
-            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-//            findViewById(R.id.logout_button).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            findViewById(R.id.logout_button).setVisibility(View.VISIBLE);
-        }
-        // ToDo
-    }
-
     public void logout(View view) {
-//        FirebaseAuth.getInstance().signOut();
-        Log.d(TAG, "logout: ");
-        Log.d(TAG, "logout: " + mAuth);
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
@@ -175,7 +122,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         // [END_EXCLUDE]
                     }
                 });
-
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         updateUI(account);
     }
