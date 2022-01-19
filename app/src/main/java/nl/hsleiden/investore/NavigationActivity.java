@@ -2,6 +2,7 @@ package nl.hsleiden.investore;
 
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import nl.hsleiden.investore.databinding.ActivityNavigationBinding;
+import nl.hsleiden.investore.ui.login.SignInActivity;
 
 public class NavigationActivity extends AppCompatActivity {
 
@@ -91,6 +93,19 @@ public class NavigationActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                logoutNav();
+                return true;
+            case R.id.action_login:
+                startActivity(new Intent(this, SignInActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void logoutNav() {
         Log.d(TAG, "logout: ");
         mGoogleSignInClient.signOut()
@@ -111,17 +126,6 @@ public class NavigationActivity extends AppCompatActivity {
             // ToDo
         } else {
             // ToDo
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_logout:
-                logoutNav();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

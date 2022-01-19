@@ -18,6 +18,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import nl.hsleiden.investore.NavigationActivity;
 import nl.hsleiden.investore.R;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
@@ -90,6 +91,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
             // Signed in successfully, show authenticated UI.
             updateUI(account);
+            goToNavigation();
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -120,5 +122,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 });
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         updateUI(account);
+    }
+
+    public void goToNavigation() {
+        startActivity(new Intent(this, NavigationActivity.class));
     }
 }
