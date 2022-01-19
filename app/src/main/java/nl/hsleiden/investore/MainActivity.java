@@ -55,14 +55,12 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.button2).setVisibility(View.GONE);
             findViewById(R.id.button3).setVisibility(View.GONE);
             findViewById(R.id.button4).setVisibility(View.GONE);
-            findViewById(R.id.button10).setVisibility(View.GONE);
         } else {
 
             findViewById(R.id.button).setVisibility(View.VISIBLE);
             findViewById(R.id.button2).setVisibility(View.VISIBLE);
             findViewById(R.id.button3).setVisibility(View.VISIBLE);
             findViewById(R.id.button4).setVisibility(View.VISIBLE);
-            findViewById(R.id.button10).setVisibility(View.VISIBLE);
         }
     }
 
@@ -78,25 +76,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, NavigationActivity.class));
     }
 
-    public void goToSignIn(View view) {
-        startActivity(new Intent(this, SignInActivity.class));
-    }
-
     public void goToDatabaseTest(View view) {
         startActivity(new Intent(this, DatabaseTestActivity.class));
-    }
-
-    public void logout(View view) {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // [START_EXCLUDE]
-                        updateUI(null);
-                        // [END_EXCLUDE]
-                    }
-                });
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
     }
 }
