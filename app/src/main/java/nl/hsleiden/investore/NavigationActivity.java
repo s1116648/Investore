@@ -107,7 +107,6 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     public void logoutNav() {
-        Log.d(TAG, "logout: ");
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
@@ -127,5 +126,19 @@ public class NavigationActivity extends AppCompatActivity {
         } else {
             // ToDo
         }
+    }
+
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        MenuItem login = menu.findItem(R.id.action_login);
+        MenuItem logout = menu.findItem(R.id.action_logout);
+        if(account == null) {
+            login.setVisible(true);
+            logout.setVisible(false);
+        } else {
+            login.setVisible(false);
+            logout.setVisible(true);
+        }
+        return true;
     }
 }

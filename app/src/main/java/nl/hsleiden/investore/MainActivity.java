@@ -53,13 +53,13 @@ public class MainActivity extends AppCompatActivity {
         if (account == null) {
             findViewById(R.id.button).setVisibility(View.GONE);
             findViewById(R.id.button2).setVisibility(View.GONE);
-            findViewById(R.id.button3).setVisibility(View.GONE);
+//            findViewById(R.id.button3).setVisibility(View.GONE);
             findViewById(R.id.button4).setVisibility(View.GONE);
         } else {
 
             findViewById(R.id.button).setVisibility(View.VISIBLE);
             findViewById(R.id.button2).setVisibility(View.VISIBLE);
-            findViewById(R.id.button3).setVisibility(View.VISIBLE);
+//            findViewById(R.id.button3).setVisibility(View.VISIBLE);
             findViewById(R.id.button4).setVisibility(View.VISIBLE);
         }
     }
