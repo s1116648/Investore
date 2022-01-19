@@ -54,7 +54,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
     }
 
     @Override
@@ -89,24 +88,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            // Signed in successfully, show authenticated UI.
-            updateUI(account);
+            // Signed in successfully, show navigationActivity.
             goToNavigation();
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            updateUI(null);
-        }
-    }
-
-    private void updateUI(GoogleSignInAccount account) {
-        if (account == null) {
-            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-            findViewById(R.id.logout_button).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            findViewById(R.id.logout_button).setVisibility(View.VISIBLE);
         }
     }
 
@@ -116,12 +103,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         // [START_EXCLUDE]
-                        updateUI(null);
                         // [END_EXCLUDE]
                     }
                 });
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
     }
 
     public void goToNavigation() {
