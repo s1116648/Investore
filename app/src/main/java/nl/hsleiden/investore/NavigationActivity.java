@@ -2,12 +2,15 @@ package nl.hsleiden.investore;
 
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -122,8 +125,17 @@ public class NavigationActivity extends AppCompatActivity {
 
     private void updateUI(GoogleSignInAccount account) {
         if (account == null) {
+            // Visibility of account mail is off
+            NavigationView navigationView = findViewById(R.id.nav_view);
+            TextView textView = navigationView.getHeaderView(0).findViewById(R.id.nav_header_account_mail);
+            textView.setVisibility(View.VISIBLE);
             // ToDo
         } else {
+            // Puts account mail in header of navigation
+            NavigationView navigationView = findViewById(R.id.nav_view);
+            TextView textView = navigationView.getHeaderView(0).findViewById(R.id.nav_header_account_mail);
+            textView.setVisibility(View.VISIBLE);
+            textView.setText(account.getEmail());
             // ToDo
         }
     }
