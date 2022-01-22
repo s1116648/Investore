@@ -37,8 +37,6 @@ public class ItemsFragment extends Fragment {
         setItemInfoFromDB();
         setAdapter();
 
-        investoreDB.logAllItems();
-
         return root;
     }
 

@@ -127,9 +127,6 @@ public class InvestoreDB extends SQLiteOpenHelper {
     }
 
     public void logAllItems() {
-
-        ArrayList<Item> itemsList;
-
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         Log.d(TAG, "logAllItems: Cursor: \n" + DatabaseUtils.dumpCursorToString(cursor));
