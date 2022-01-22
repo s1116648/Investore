@@ -23,6 +23,15 @@ public class Item {
         this.buyPrice = buyPrice;
     }
 
+    public Item(String id, String name, String notes, String entryDate, double buyPrice) {
+        this.ID = id;
+        this.name = name;
+        this.notes = notes;
+        this.entryDate = entryDate;
+        this.sold = false;
+        this.buyPrice = buyPrice;
+    }
+
     public Item(String ID, String name, String notes, String entryDate, String sellDate, boolean sold, double buyPrice, double sellPrice) {
         this.ID = ID;
         this.name = name;

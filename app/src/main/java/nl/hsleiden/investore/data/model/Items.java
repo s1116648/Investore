@@ -1,7 +1,6 @@
 package nl.hsleiden.investore.data.model;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Items {
     private ArrayList<Item> items;

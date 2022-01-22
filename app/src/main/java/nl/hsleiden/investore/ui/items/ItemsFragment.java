@@ -21,12 +21,14 @@ import java.util.ArrayList;
 
 import nl.hsleiden.investore.R;
 import nl.hsleiden.investore.data.GenerateExampleItems;
+import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
 import nl.hsleiden.investore.databinding.FragmentItemsBinding;
 
 public class ItemsFragment extends Fragment {
     private FragmentItemsBinding binding;
 
+    private InvestoreDB investoreDB;
     private ArrayList<Item> itemsList;
     private RecyclerView recyclerView;
 
@@ -39,10 +41,21 @@ public class ItemsFragment extends Fragment {
         itemsList = new ArrayList<>();
 
         recyclerView = binding.recyclerView;
-        setItemInfo();
+//        setItemInfo();
+
+        loadDatabase();
+        setItemInfoFromDB();
         setAdapter();
 
+        investoreDB.logAllItems();
+
         return root;
+    }
+
+    private void loadDatabase() {
+        if (investoreDB == null) {
+            investoreDB = new InvestoreDB(binding.getRoot().getContext());
+        }
     }
 
     private void setAdapter() {
@@ -56,6 +69,10 @@ public class ItemsFragment extends Fragment {
             Item item = GenerateExampleItems.generateItem(i);
             itemsList.add(item);
         }
+    }
+
+    private void setItemInfoFromDB() {
+        itemsList = investoreDB.getAllItems();
     }
 
     @Override

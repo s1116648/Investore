@@ -1,9 +1,16 @@
 package nl.hsleiden.investore.data.database;
 
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 import nl.hsleiden.investore.data.model.Item;
 
@@ -72,5 +79,60 @@ public class InvestoreDB extends SQLiteOpenHelper {
     public void clearItems() {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.execSQL("delete from "+ TABLE_NAME);
+    }
+
+    public ArrayList<Item> getAllItems() {
+        ArrayList<Item> itemsList = new ArrayList<>();
+
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+
+        for (int i = 0; i < cursor.getCount(); i++) {
+            cursor.moveToNext();
+            itemsList.add(getItemFromCursor(cursor));
+        }
+
+        return itemsList;
+    }
+
+    private Item getItemFromCursor(Cursor cursor) {
+        String id = cursor.getString(0);
+        String name = cursor.getString(1);
+        String notes = cursor.getString(2);
+        String entryDate = cursor.getString(3);
+        
+        double buyPrice;
+        String buyPriceString = cursor.getString(6);
+        buyPrice = Double.parseDouble(buyPriceString);
+        
+        boolean sold;
+        String soldString = cursor.getString(5);
+        int soldInt = Integer.parseInt(soldString);
+        if (soldInt > 0) {
+            sold = true;
+        } else {
+            sold = false;
+        }
+
+        if (sold) {
+            String itemSellDate = cursor.getString(4);
+            double itemSellPrice;
+            String itemSellPriceString = cursor.getString(7);
+            itemSellPrice = Double.parseDouble(itemSellPriceString);
+            
+            return new Item(id, name, notes, entryDate, itemSellDate, true, buyPrice, itemSellPrice);
+        } else {
+            return new Item(id, name, notes, entryDate, buyPrice);
+        }
+    }
+
+    public void logAllItems() {
+
+        ArrayList<Item> itemsList;
+
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Log.d(TAG, "logAllItems: Cursor: \n" + DatabaseUtils.dumpCursorToString(cursor));
+
     }
 }
