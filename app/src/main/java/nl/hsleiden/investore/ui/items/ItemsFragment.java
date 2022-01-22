@@ -1,4 +1,4 @@
-package nl.hsleiden.investore.ui.gallery;
+package nl.hsleiden.investore.ui.items;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import nl.hsleiden.investore.R;
-import nl.hsleiden.investore.databinding.FragmentGalleryBinding;
+import nl.hsleiden.investore.databinding.FragmentItemsBinding;
 
-public class GalleryFragment extends Fragment {
+public class ItemsFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
-    private FragmentGalleryBinding binding;
+    private ItemsViewModel galleryViewModel;
+    private FragmentItemsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+                new ViewModelProvider(this).get(ItemsViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentItemsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textGallery;
