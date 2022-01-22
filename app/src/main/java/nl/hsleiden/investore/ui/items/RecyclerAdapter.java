@@ -8,13 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import nl.hsleiden.investore.R;
 import nl.hsleiden.investore.data.model.Item;
 import nl.hsleiden.investore.databinding.ListItemsBinding;
 
@@ -63,6 +60,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public void bindView(Item item) {
             listItemsBinding.itemName.setText(item.getName());
+            listItemsBinding.itemNotes.setText(item.getNotes());
         }
     }
 }
