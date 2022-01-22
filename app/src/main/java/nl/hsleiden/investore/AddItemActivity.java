@@ -2,11 +2,13 @@ package nl.hsleiden.investore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
@@ -60,17 +62,11 @@ public class AddItemActivity extends AppCompatActivity {
                 if (checkIfValid()) {
                     Item item = generateItemFromInputs();
                     addItemToDB(item);
+                    toastAddedSuccess();
+                    goToNavigationView();
                 }
             }
         });
-    }
-
-    private Item generateItemFromInputs() {
-        String itemName = editName.getText().toString();
-        String itemEntryDate = editEntryDate.getText().toString();
-        double itemBuyPrice = Double.parseDouble(editBuyPrice.getText().toString());
-        String itemNotes = editNotes.getText().toString();
-        return new Item(itemName, itemNotes, itemEntryDate, itemBuyPrice);
     }
 
     private boolean checkIfValid() {
@@ -93,10 +89,24 @@ public class AddItemActivity extends AppCompatActivity {
         return true;
     }
 
+    private Item generateItemFromInputs() {
+        String itemName = editName.getText().toString();
+        String itemEntryDate = editEntryDate.getText().toString();
+        double itemBuyPrice = Double.parseDouble(editBuyPrice.getText().toString());
+        String itemNotes = editNotes.getText().toString();
+        return new Item(itemName, itemNotes, itemEntryDate, itemBuyPrice);
+    }
+
     private void addItemToDB(Item item) {
         investoreDB.addItem(item);
     }
 
+    private void toastAddedSuccess() {
+        Toast toast = Toast.makeText(this, R.string.item_succesfully_added, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
-
+    private void goToNavigationView() {
+        startActivity(new Intent(this, NavigationActivity.class));
+    }
 }
