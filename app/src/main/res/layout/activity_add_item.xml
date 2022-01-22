@@ -16,46 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/add_item_buy_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="Buy date:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_name" />
-
-    <TextView
-        android:id="@+id/add_item_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="Buy price"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_entry_date" />
-
-    <TextView
-        android:id="@+id/add_item_notes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="Notes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_item_price" />
-
-    <Button
-        android:id="@+id/add_submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="Submit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_notes" />
-
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="0dp"
@@ -71,6 +31,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_item_name" />
 
+    <TextView
+        android:id="@+id/add_item_buy_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Buy date:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_name" />
+
     <EditText
         android:id="@+id/edit_entry_date"
         android:layout_width="0dp"
@@ -81,10 +51,21 @@
         android:ems="10"
         android:inputType="date"
         android:minHeight="48dp"
+        android:hint="DD-MM-YYYY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/add_item_buy_date"
         app:layout_constraintTop_toBottomOf="@+id/edit_name"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/add_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Buy price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_entry_date" />
 
     <EditText
         android:id="@+id/edit_buy_price"
@@ -96,9 +77,20 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
+        android:hint="€"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/add_item_price"
         app:layout_constraintTop_toBottomOf="@+id/edit_entry_date" />
+
+    <TextView
+        android:id="@+id/add_item_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Notes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_item_price" />
 
     <EditText
         android:id="@+id/edit_notes"
@@ -109,9 +101,20 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:minHeight="94dp"
+        android:minHeight="48dp"
+        android:hint="(optional)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_item_notes" />
+
+    <Button
+        android:id="@+id/add_submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_notes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
