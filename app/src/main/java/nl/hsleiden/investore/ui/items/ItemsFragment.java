@@ -52,14 +52,10 @@ public class ItemsFragment extends Fragment {
     }
 
     private void setItemInfo() {
-        Item item1 = GenerateExampleItems.generateItem(1);
-        itemsList.add(item1);
-        Item item2 = GenerateExampleItems.generateItem(2);
-        itemsList.add(item2);
-        Item item3 = GenerateExampleItems.generateItem(3);
-        itemsList.add(item3);
-        Item item4 = GenerateExampleItems.generateItem(4);
-        itemsList.add(item4);
+        for (int i = 0; i < GenerateExampleItems.getNumberOfCases(); i++) {
+            Item item = GenerateExampleItems.generateItem(i);
+            itemsList.add(item);
+        }
     }
 
     @Override

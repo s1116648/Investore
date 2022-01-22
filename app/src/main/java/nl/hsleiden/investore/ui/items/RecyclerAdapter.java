@@ -61,6 +61,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public void bindView(Item item) {
             listItemsBinding.itemName.setText(item.getName());
             listItemsBinding.itemNotes.setText(item.getNotes());
+            listItemsBinding.itemEntryDate.setText(item.getEntryDate());
         }
     }
 }
