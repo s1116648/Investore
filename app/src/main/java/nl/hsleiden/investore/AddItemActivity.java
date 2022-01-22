@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import nl.hsleiden.investore.data.database.InvestoreDB;
+import nl.hsleiden.investore.data.model.Item;
 import nl.hsleiden.investore.data.model.ItemValidationModel;
 import nl.hsleiden.investore.databinding.ActivityAddItemBinding;
 
@@ -20,6 +22,7 @@ public class AddItemActivity extends AppCompatActivity {
     private ActivityAddItemBinding binding;
 
     private ItemValidationModel itemValidationModel;
+    private InvestoreDB investoreDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,14 @@ public class AddItemActivity extends AppCompatActivity {
 
         itemValidationModel = new ItemValidationModel();
 
+        loadDatabase();
         assignVariables();
+    }
+
+    private void loadDatabase() {
+        if (investoreDB == null) {
+            investoreDB = new InvestoreDB(this);
+        }
     }
 
     private void assignVariables() {
@@ -48,10 +58,19 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkIfValid()) {
-                    addItemToDB();
+                    Item item = generateItemFromInputs();
+                    addItemToDB(item);
                 }
             }
         });
+    }
+
+    private Item generateItemFromInputs() {
+        String itemName = editName.getText().toString();
+        String itemEntryDate = editEntryDate.getText().toString();
+        double itemBuyPrice = Double.parseDouble(editBuyPrice.getText().toString());
+        String itemNotes = editNotes.getText().toString();
+        return new Item(itemName, itemNotes, itemEntryDate, itemBuyPrice);
     }
 
     private boolean checkIfValid() {
@@ -74,8 +93,10 @@ public class AddItemActivity extends AppCompatActivity {
         return true;
     }
 
-    private void addItemToDB() {
+    private void addItemToDB(Item item) {
+        investoreDB.addItem(item);
     }
+
 
 
 }

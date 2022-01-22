@@ -14,7 +14,7 @@ public class Item {
     private double buyPrice;
     private double sellPrice;
 
-    public Item(String name, String notes, String entryDate, int buyPrice) {
+    public Item(String name, String notes, String entryDate, double buyPrice) {
         this.ID = UUID.randomUUID().toString(); // generates an unique id
         this.name = name;
         this.notes = notes;
