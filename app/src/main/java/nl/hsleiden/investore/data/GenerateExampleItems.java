@@ -4,7 +4,6 @@ import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
 import android.util.Log;
 
-import java.util.Random;
 import java.util.UUID;
 
 import nl.hsleiden.investore.data.database.InvestoreDB;

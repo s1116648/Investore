@@ -1,14 +1,7 @@
 package nl.hsleiden.investore.data.model;
 
-import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
-
-import android.util.Log;
-
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import nl.hsleiden.investore.databinding.ActivityAddItemBinding;
 
 public class ItemValidationModel {
 
