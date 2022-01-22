@@ -102,7 +102,7 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private void toastAddedSuccess() {
-        Toast toast = Toast.makeText(this, R.string.item_succesfully_added, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, R.string.item_successfully_added, Toast.LENGTH_SHORT);
         toast.show();
     }
 
