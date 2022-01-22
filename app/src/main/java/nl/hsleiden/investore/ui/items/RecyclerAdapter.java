@@ -50,7 +50,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             super(listItemsBinding.getRoot());
             this.listItemsBinding = listItemsBinding;
 
-            this.listItemsBinding.itemName.setOnClickListener(new View.OnClickListener() {
+            this.listItemsBinding.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.d(TAG, "onClick: " + getAdapterPosition());
@@ -60,8 +60,27 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public void bindView(Item item) {
             listItemsBinding.itemName.setText(item.getName());
-            listItemsBinding.itemNotes.setText(item.getNotes());
+            if (item.getNotes().equals("")) {
+                listItemsBinding.itemNotes.setVisibility(View.GONE);
+            } else {
+                listItemsBinding.itemNotes.setVisibility(View.VISIBLE);
+                listItemsBinding.itemNotes.setText(item.getNotes());
+            }
             listItemsBinding.itemEntryDate.setText(item.getEntryDate());
+            listItemsBinding.itemBuyPrice.setText(Double.toString(item.getBuyPrice()));
+            if (item.getSold()) {
+                listItemsBinding.sellDate.setVisibility(View.VISIBLE);
+                listItemsBinding.itemSellDate.setVisibility(View.VISIBLE);
+                listItemsBinding.itemSellDate.setText(item.getSellDate());
+                listItemsBinding.sellPrice.setVisibility(View.VISIBLE);
+                listItemsBinding.itemSellPrice.setVisibility(View.VISIBLE);
+                listItemsBinding.itemSellPrice.setText(Double.toString(item.getSellPrice()));
+            } else {
+                listItemsBinding.sellDate.setVisibility(View.GONE);
+                listItemsBinding.itemSellDate.setVisibility(View.GONE);
+                listItemsBinding.sellPrice.setVisibility(View.GONE);
+                listItemsBinding.itemSellPrice.setVisibility(View.GONE);
+            }
         }
     }
 }
