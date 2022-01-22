@@ -52,24 +52,16 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI(GoogleSignInAccount account) {
         if (account == null) {
             findViewById(R.id.button).setVisibility(View.GONE);
-            findViewById(R.id.button2).setVisibility(View.GONE);
-//            findViewById(R.id.button3).setVisibility(View.GONE);
             findViewById(R.id.button4).setVisibility(View.GONE);
         } else {
 
             findViewById(R.id.button).setVisibility(View.VISIBLE);
-            findViewById(R.id.button2).setVisibility(View.VISIBLE);
-//            findViewById(R.id.button3).setVisibility(View.VISIBLE);
             findViewById(R.id.button4).setVisibility(View.VISIBLE);
         }
     }
 
     public void goToAddItem(View view) {
         startActivity(new Intent(this, AddItemActivity.class));
-    }
-
-    public void goToList(View view) {
-        startActivity(new Intent(this, ListActivity.class));
     }
 
     public void goToNavigation(View view) {

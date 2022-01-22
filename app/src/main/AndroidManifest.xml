@@ -25,11 +25,6 @@
             android:label="@string/title_activity_navigation"
             android:theme="@style/Theme.Investore.NoActionBar" />
         <activity
-            android:name=".ListActivity"
-            android:exported="false"
-            android:label="@string/title_activity_list"
-            android:theme="@style/Theme.Investore.NoActionBar" />
-        <activity
             android:name=".AddItemActivity"
             android:exported="false" />
         <activity
