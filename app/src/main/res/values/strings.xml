@@ -51,5 +51,6 @@
     <string name="date_format">dd-MM-yyyy</string>
     <string name="double_format">#.##</string>
     <string name="item_successfully_added">Item added!</string>
+    <string name="item_successfully_edited">Item edited!</string>
     <string name="item_id_name">itemID</string>
 </resources>

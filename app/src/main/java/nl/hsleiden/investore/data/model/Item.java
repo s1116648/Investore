@@ -33,6 +33,17 @@ public class Item {
         this.buyPrice = buyPrice;
     }
 
+    public Item(String name, String notes, String entryDate, String sellDate, boolean sold, double buyPrice, double sellPrice) {
+        this.ID = UUID.randomUUID().toString(); // generates an unique id
+        this.name = name;
+        this.notes = notes;
+        this.entryDate = entryDate;
+        this.sellDate = sellDate;
+        this.sold = sold;
+        this.buyPrice = buyPrice;
+        this.sellPrice = sellPrice;
+    }
+
     public Item(String ID, String name, String notes, String entryDate, String sellDate, boolean sold, double buyPrice, double sellPrice) {
         this.ID = ID;
         this.name = name;

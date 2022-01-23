@@ -141,10 +141,26 @@ public class InvestoreDB extends SQLiteOpenHelper {
         }
     }
 
+    public void updateItem(Item item) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ITEM_NAME, item.getName());
+        Log.d(TAG, "updateItem: item.getName(): " + item.getName());
+        contentValues.put(COLUMN_ITEM_NOTES, item.getNotes());
+        contentValues.put(COLUMN_ITEM_ENTRY_DATE, item.getEntryDate());
+        contentValues.put(COLUMN_ITEM_SELL_DATE, item.getSellDate());
+        contentValues.put(COLUMN_ITEM_SOLD, item.getSold());
+        contentValues.put(COLUMN_ITEM_BUY_PRICE, item.getBuyPrice());
+        contentValues.put(COLUMN_ITEM_SELL_PRICE, item.getSellPrice());
+        String whereClause = COLUMN_ITEM_ID + "=?";
+        String[] whereArgs = new String[] {item.getID()};
+
+        sqLiteDatabase.update(TABLE_NAME, contentValues, whereClause, whereArgs);
+    }
+
     public void logAllItems() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         Log.d(TAG, "logAllItems: Cursor: \n" + DatabaseUtils.dumpCursorToString(cursor));
-
     }
 }

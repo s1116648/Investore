@@ -59,7 +59,7 @@ public class AddItemActivity extends AppCompatActivity {
         addSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkIfValid()) {
+                if (fieldsAreValid()) {
                     Item item = generateItemFromInputs();
                     addItemToDB(item);
                     toastAddedSuccess();
@@ -69,24 +69,28 @@ public class AddItemActivity extends AppCompatActivity {
         });
     }
 
-    private boolean checkIfValid() {
+    private boolean fieldsAreValid() {
+        boolean isValid = true;
         binding.addItemName.getCurrentTextColor();
         if (!itemValidationModel.nameIsValid(editName.getText().toString())) {
             binding.addItemName.setTextColor(Color.RED);
+            isValid = false;
         } else {
             binding.addItemName.setTextColor(defaultAddNameColor);
         }
         if (!itemValidationModel.dateIsValid(editEntryDate.getText().toString(), getString(R.string.date_format))) {
             binding.addItemBuyDate.setTextColor(Color.RED);
+            isValid = false;
         } else {
             binding.addItemBuyDate.setTextColor(defaultAddBuyDateColor);
         }
         if (!itemValidationModel.priceIsValid(editBuyPrice.getText().toString())) {
             binding.addItemBuyPrice.setTextColor(Color.RED);
+            isValid = false;
         } else {
             binding.addItemBuyPrice.setTextColor(defaultAddBuyPriceColor);
         }
-        return true;
+        return isValid;
     }
 
     private Item generateItemFromInputs() {
