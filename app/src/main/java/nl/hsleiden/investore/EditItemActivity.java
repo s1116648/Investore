@@ -56,6 +56,7 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     private void loadItemDetails() {
+        itemId = getItemIdFromExtras();
         item = investoreDB.getItemById(itemId);
 
         editName.setText(item.getName());
@@ -67,5 +68,10 @@ public class EditItemActivity extends AppCompatActivity {
             editSellDate.setText(item.getSellDate());
             editSellPrice.setText(item.getSellPriceFormatted());
         }
+    }
+
+    private String getItemIdFromExtras() {
+        Bundle bundle = getIntent().getExtras();
+        return bundle.getString(getString(R.string.item_id_name));
     }
 }

@@ -1,8 +1,7 @@
 package nl.hsleiden.investore.ui.items;
 
-import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
-
-import android.util.Log;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import nl.hsleiden.investore.EditItemActivity;
+import nl.hsleiden.investore.R;
 import nl.hsleiden.investore.data.model.Item;
 import nl.hsleiden.investore.databinding.ListItemsBinding;
 
@@ -19,6 +20,12 @@ import nl.hsleiden.investore.databinding.ListItemsBinding;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private List<Item> itemsList;
+
+    private Context context;
+
+    public RecyclerAdapter(Context context) {
+        this.context = context;
+    }
 
     public void updateItemList(List<Item> itemsList) {
         this.itemsList = itemsList;
@@ -42,6 +49,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return itemsList.size();
     }
 
+    private void goToEditItemActivity(Item item) {
+        Intent intent = new Intent(context, EditItemActivity.class);
+        intent.putExtra(context.getResources().getString(R.string.item_id_name), item.getID());
+        context.startActivity(intent);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         ListItemsBinding listItemsBinding;
@@ -53,7 +66,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             this.listItemsBinding.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(TAG, "onClick: " + getAdapterPosition());
+                    goToEditItemActivity(itemsList.get(getAdapterPosition()));
                 }
             });
         }

@@ -46,7 +46,7 @@ public class ItemsFragment extends Fragment {
     }
 
     private void setAdapter() {
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter();
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext());
         binding.recyclerView.setAdapter(recyclerAdapter);
         recyclerAdapter.updateItemList(itemsList);
     }
@@ -54,6 +54,7 @@ public class ItemsFragment extends Fragment {
     private void setItemInfoFromDB() {
         itemsList = investoreDB.getAllItems();
     }
+
 
     @Override
     public void onDestroyView() {
