@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Investore">
         <activity
+            android:name=".EditItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".DatabaseTestActivity"
             android:exported="false" />
         <activity
