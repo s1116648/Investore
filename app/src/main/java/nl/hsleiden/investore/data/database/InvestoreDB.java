@@ -81,6 +81,21 @@ public class InvestoreDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("delete from "+ TABLE_NAME);
     }
 
+    /**
+     *
+     * @param id
+     * @return returns null if no item with id is found.
+     */
+    public Item getItemById(String id) {
+        ArrayList<Item> items = getAllItems();
+        for (Item item: items) {
+            if (item.getID().equals(id)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Item> getAllItems() {
         ArrayList<Item> itemsList = new ArrayList<>();
 
