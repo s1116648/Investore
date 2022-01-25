@@ -11,12 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
-import nl.hsleiden.investore.data.model.ItemValidationModel;
+import nl.hsleiden.investore.data.tools.ItemValidationModel;
 import nl.hsleiden.investore.data.tools.ItemDataToStringTool;
 import nl.hsleiden.investore.databinding.ActivityEditItemBinding;
 

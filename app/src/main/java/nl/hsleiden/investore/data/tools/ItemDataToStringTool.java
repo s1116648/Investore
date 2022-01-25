@@ -10,7 +10,7 @@ public class ItemDataToStringTool {
 
     // Outputs given double in string with 2 decimals.
     public String doubleToString(double input) {
-        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         return decimalFormat.format(input);
     }
 

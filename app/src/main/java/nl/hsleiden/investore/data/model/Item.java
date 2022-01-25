@@ -123,7 +123,7 @@ public class Item {
     public double getProfitPercentage() {
         double part = getProfit();
         double whole = buyPrice;
-        return (part / whole) * 100;
+        return (part / whole) * 100; // ToDo, what if buyPrice is zero.
     }
 
     @Override

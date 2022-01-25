@@ -1,4 +1,4 @@
-package nl.hsleiden.investore.data.model;
+package nl.hsleiden.investore.data.tools;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
