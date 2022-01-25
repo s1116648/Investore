@@ -115,11 +115,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             } else {
                 visibility = View.GONE;
             }
+
+            // Sell fields
             listItemsBinding.sellDate.setVisibility(visibility);
             listItemsBinding.itemSellDate.setVisibility(visibility);
             listItemsBinding.sellPrice.setVisibility(visibility);
             listItemsBinding.itemSellPrice.setVisibility(visibility);
 
+            // Profit fields
             listItemsBinding.profit.setVisibility(visibility);
             listItemsBinding.itemProfit.setVisibility(visibility);
             listItemsBinding.itemProfitPercentage.setVisibility(visibility);
