@@ -37,7 +37,10 @@ public class EditItemActivity extends AppCompatActivity {
             wrongColor;
     private String itemId;
     private Item item;
-    private Button editSubmitButton;
+    private Button
+            editSubmitButton,
+            editCancelButton,
+            editDeleteButton;
 
     private ActivityEditItemBinding binding;
 
@@ -70,18 +73,23 @@ public class EditItemActivity extends AppCompatActivity {
         editNotes = binding.editNotes;
         editSellDate = binding.editSellDate;
         editSellPrice = binding.editSellPrice;
-        editSubmitButton = binding.editSubmitButton;
 
+        editSubmitButton = binding.editSubmitButton;
+        editCancelButton = binding.editCancelButton;
+        editDeleteButton = binding.editDeleteButton;
+
+        setUpColors();
+        loadItemDetails();
+        setUpButtons();
+    }
+
+    private void setUpColors() {
         defaultEditNameColor = binding.editItemName.getCurrentTextColor();
         defaultEditBuyDateColor = binding.editItemBuyDate.getCurrentTextColor();
         defaultEditBuyPriceColor = binding.editItemBuyPrice.getCurrentTextColor();
         defaultEditSellDateColor = binding.editItemSellDate.getCurrentTextColor();
         defaultEditSellPriceColor = binding.editItemSellPrice.getCurrentTextColor();
         wrongColor = Color.RED;
-
-        loadItemDetails();
-
-        setUpSubmitButton();
     }
 
     private void loadItemDetails() {
@@ -104,17 +112,45 @@ public class EditItemActivity extends AppCompatActivity {
         return bundle.getString(getString(R.string.item_id_name));
     }
 
+    private void setUpButtons() {
+        setUpSubmitButton();
+        setUpCancelButton();
+        setUpDeleteButton();
+    }
+
     private void setUpSubmitButton() {
         editSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(fieldsAreValid()) {
                     Item item = generateItemFromInputs();
-                    Log.d(TAG, "onClick: new item: " + item.toString());
-                    editItemInDB(item);
+                    investoreDB.updateItem(item);
                     toastEditedSuccess();
                     goToNavigationView();
+                } else {
+                    toastEditedFailure();
                 }
+            }
+        });
+    }
+
+    private void setUpCancelButton() {
+        editCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toastCanceled();
+                goToNavigationView();
+            }
+        });
+    }
+
+    private void setUpDeleteButton() {
+        editDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                investoreDB.removeItem(item);
+                toastDeletedSuccess();
+                goToNavigationView();
             }
         });
     }
@@ -154,34 +190,32 @@ public class EditItemActivity extends AppCompatActivity {
             return isValid;
         }
 
-        boolean sellDateValid = itemValidationModel.dateIsValid(editSellDate.getText().toString(), getString(R.string.date_format));
-        if (!sellDateValid) {
+        int editSellDateColor;
+        if (!itemValidationModel.dateIsValid(editSellDate.getText().toString(), getString(R.string.date_format))) {
             isValid = false;
+            editSellDateColor = wrongColor;
+        } else {
+            editSellDateColor = defaultEditSellDateColor;
         }
-        updateTextViewColors(sellDateValid, binding.editItemSellDate, defaultEditSellDateColor);
+        binding.editItemSellDate.setTextColor(editSellDateColor);
 
-        boolean sellPriceValid = itemValidationModel.priceIsValid(editSellPrice.getText().toString());
-        if (!sellPriceValid) {
+        int editSellPriceColor;
+        if (!itemValidationModel.priceIsValid(editSellPrice.getText().toString())) {
             isValid = false;
+            editSellPriceColor = wrongColor;
+        } else {
+            editSellPriceColor = defaultEditSellPriceColor;
         }
-        updateTextViewColors(sellPriceValid, binding.editItemSellPrice, defaultEditSellPriceColor);
+        binding.editItemSellPrice.setTextColor(editSellPriceColor);
 
         return isValid;
     }
 
-    private void updateTextViewColors(boolean setWrong, TextView textView, int defaultColor) {
-        if (setWrong) {
-            textView.setTextColor(wrongColor);
-        } else {
-            textView.setTextColor(defaultColor);
-        }
-    }
-
     private boolean allSellFieldsAreEmpty() {
-        if (binding.editSellDate.getText().equals("")) {
+        if (binding.editSellDate.getText().toString().equals("")) {
             return false;
         }
-        if (binding.editSellPrice.getText().equals("")) {
+        if (binding.editSellPrice.getText().toString().equals("")) {
             return false;
         }
         return true;
@@ -201,12 +235,24 @@ public class EditItemActivity extends AppCompatActivity {
         return new Item(itemId, itemName, itemNotes, itemEntryDate, itemSellDate, true, itemBuyPrice, itemSellPrice);
     }
 
-    private void editItemInDB(Item item) {
-        investoreDB.updateItem(item);
+    private void toastEditedSuccess() {
+        throwAToastMessage(getString(R.string.item_successfully_edited));
     }
 
-    private void toastEditedSuccess() {
-        Toast toast = Toast.makeText(this, R.string.item_successfully_edited, Toast.LENGTH_SHORT);
+    private void toastEditedFailure() {
+        throwAToastMessage(getString(R.string.item_failure_failure));
+    }
+
+    private void toastCanceled() {
+        throwAToastMessage(getString(R.string.edit_item_canceled));
+    }
+
+    private void toastDeletedSuccess() {
+        throwAToastMessage(getString(R.string.item_successfully_deleted));
+    }
+
+    private void throwAToastMessage(String toastText) {
+        Toast toast = Toast.makeText(this, toastText, Toast.LENGTH_SHORT);
         toast.show();
     }
 
