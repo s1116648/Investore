@@ -60,6 +60,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
 
         ListItemsBinding listItemsBinding;
+        ItemDataToStringTool stringTool;
+        String currency;
 
         public ViewHolder(@NonNull ListItemsBinding listItemsBinding) {
             super(listItemsBinding.getRoot());
@@ -71,9 +73,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     goToEditItemActivity(itemsList.get(getAdapterPosition()));
                 }
             });
+
+            stringTool = new ItemDataToStringTool();
         }
 
         public void bindView(Item item) {
+            initialiseCurrency();
+
             listItemsBinding.itemName.setText(item.getName());
             if (item.getNotes().equals("")) {
                 listItemsBinding.itemNotes.setVisibility(View.GONE);
@@ -82,9 +88,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 listItemsBinding.itemNotes.setText(item.getNotes());
             }
             listItemsBinding.itemEntryDate.setText(item.getEntryDate());
-            listItemsBinding.itemBuyPrice.setText(Double.toString(item.getBuyPrice()));
+            String buyPrice = stringTool.doubleInCurrency(item.getBuyPrice(), currency);
+            listItemsBinding.itemBuyPrice.setText(buyPrice);
 
             setUpSoldData(item);
+        }
+
+        private void initialiseCurrency() {
+            currency = "€"; // ToDo not hardcode currency
         }
 
         private void setUpSoldData(Item item) {
@@ -116,13 +127,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         private void fillInSoldTextFields(Item item) {
             listItemsBinding.itemSellDate.setText(item.getSellDate());
-            listItemsBinding.itemSellPrice.setText(Double.toString(item.getSellPrice()));
+            String sellPrice = stringTool.doubleInCurrency(item.getSellPrice(), currency);
+            listItemsBinding.itemSellPrice.setText(sellPrice);
         }
 
         private void fillInProfitTextFields(Item item) {
             setUpProfitColors(item.getProfit());
-            ItemDataToStringTool stringTool = new ItemDataToStringTool();
-            String profitString = stringTool.doubleInCurrency(item.getProfit(), "€"); // ToDo not hardcode currency
+            String profitString = stringTool.doubleInCurrency(item.getProfit(), currency);
             listItemsBinding.itemProfit.setText(profitString);
             String profitPercentageString = stringTool.doubleInPercentage(item.getProfitPercentage());
             listItemsBinding.itemProfitPercentage.setText(profitPercentageString);

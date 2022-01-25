@@ -17,6 +17,7 @@ import android.widget.Toast;
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
 import nl.hsleiden.investore.data.model.ItemValidationModel;
+import nl.hsleiden.investore.data.tools.ItemDataToStringTool;
 import nl.hsleiden.investore.databinding.ActivityEditItemBinding;
 
 public class EditItemActivity extends AppCompatActivity {
@@ -35,7 +36,7 @@ public class EditItemActivity extends AppCompatActivity {
             defaultEditSellDateColor,
             defaultEditSellPriceColor,
             wrongColor;
-    private String itemId;
+    private String itemId, currency;
     private Item item;
     private Button
             editSubmitButton,
@@ -46,6 +47,7 @@ public class EditItemActivity extends AppCompatActivity {
 
     private ItemValidationModel itemValidationModel;
     private InvestoreDB investoreDB;
+    private ItemDataToStringTool stringTool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,8 @@ public class EditItemActivity extends AppCompatActivity {
         editCancelButton = binding.editCancelButton;
         editDeleteButton = binding.editDeleteButton;
 
+        stringTool = new ItemDataToStringTool();
+
         setUpColors();
         loadItemDetails();
         setUpButtons();
@@ -96,15 +100,23 @@ public class EditItemActivity extends AppCompatActivity {
         itemId = getItemIdFromExtras();
         item = investoreDB.getItemById(itemId);
 
+        initialiseCurrency();
+
         editName.setText(item.getName());
         editEntryDate.setText(item.getEntryDate());
-        editBuyPrice.setText(item.getBuyPriceFormatted());
+        String buyPrice = stringTool.doubleInCurrency(item.getBuyPrice(), currency);
+        editBuyPrice.setText(buyPrice);
         editNotes.setText(item.getNotes());
 
         if (item.getSold()) {
             editSellDate.setText(item.getSellDate());
-            editSellPrice.setText(item.getSellPriceFormatted());
+            String sellPrice = stringTool.doubleInCurrency(item.getSellPrice(), currency);
+            editSellPrice.setText(sellPrice);
         }
+    }
+
+    private void initialiseCurrency() {
+        currency = "€"; // ToDo not hardcode currency
     }
 
     private String getItemIdFromExtras() {

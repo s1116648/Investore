@@ -103,10 +103,6 @@ public class Item {
         return buyPrice;
     }
 
-    public String getBuyPriceFormatted() {
-        return getPriceInTwoDecimals(getBuyPrice());
-    }
-
     public void setBuyPrice(int buyPrice) {
         this.buyPrice = buyPrice;
     }
@@ -115,18 +111,9 @@ public class Item {
         return sellPrice;
     }
 
-    public String getSellPriceFormatted() {
-        return getPriceInTwoDecimals(getSellPrice());
-    }
 
     public void setSellPrice(int sellPrice) {
         this.sellPrice = sellPrice;
-    }
-
-    private String getPriceInTwoDecimals(double price) {
-        DecimalFormat decimalFormat = new DecimalFormat("#.00");
-        String formattedPriceString = decimalFormat.format(price);
-        return formattedPriceString;
     }
 
     public double getProfit() {
