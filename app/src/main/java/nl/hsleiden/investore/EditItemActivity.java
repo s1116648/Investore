@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import nl.hsleiden.investore.data.database.InvestoreDB;
@@ -32,7 +33,8 @@ public class EditItemActivity extends AppCompatActivity {
             defaultEditBuyDateColor,
             defaultEditBuyPriceColor,
             defaultEditSellDateColor,
-            defaultEditSellPriceColor;
+            defaultEditSellPriceColor,
+            wrongColor;
     private String itemId;
     private Item item;
     private Button editSubmitButton;
@@ -75,6 +77,7 @@ public class EditItemActivity extends AppCompatActivity {
         defaultEditBuyPriceColor = binding.editItemBuyPrice.getCurrentTextColor();
         defaultEditSellDateColor = binding.editItemSellDate.getCurrentTextColor();
         defaultEditSellPriceColor = binding.editItemSellPrice.getCurrentTextColor();
+        wrongColor = Color.RED;
 
         loadItemDetails();
 
@@ -118,42 +121,60 @@ public class EditItemActivity extends AppCompatActivity {
 
     private boolean fieldsAreValid() {
         boolean isValid = true;
-        binding.editItemName.getCurrentTextColor();
+        int colorInvalid = Color.RED;
+
+        int editNameColor;
         if (!itemValidationModel.nameIsValid(editName.getText().toString())) {
-            binding.editItemName.setTextColor(Color.RED);
+            editNameColor = colorInvalid;
             isValid = false;
         } else {
-            binding.editItemName.setTextColor(defaultEditNameColor);
+            editNameColor = defaultEditNameColor;
         }
+        binding.editItemName.setTextColor(editNameColor);
+
+        int editEntryDateColor;
         if (!itemValidationModel.dateIsValid(editEntryDate.getText().toString(), getString(R.string.date_format))) {
-            binding.editItemBuyDate.setTextColor(Color.RED);
+            editEntryDateColor = colorInvalid;
             isValid = false;
         } else {
-            binding.editItemBuyDate.setTextColor(defaultEditBuyDateColor);
+            editEntryDateColor = defaultEditBuyDateColor;
         }
+        binding.editItemBuyDate.setTextColor(editEntryDateColor);
+
+        int editBuyPriceColor;
         if (!itemValidationModel.priceIsValid(editBuyPrice.getText().toString())) {
-            binding.editItemBuyPrice.setTextColor(Color.RED);
+            editBuyPriceColor = Color.RED;
             isValid = false;
         } else {
-            binding.editItemBuyPrice.setTextColor(defaultEditBuyPriceColor);
+            editBuyPriceColor = defaultEditBuyPriceColor;
         }
+        binding.editItemBuyPrice.setTextColor(editBuyPriceColor);
+
         if (allSellFieldsAreEmpty()) {
             return isValid;
         }
 
-        if (!itemValidationModel.dateIsValid(editSellDate.getText().toString(), getString(R.string.date_format))) {
-            binding.editItemSellDate.setTextColor(Color.RED);
+        boolean sellDateValid = itemValidationModel.dateIsValid(editSellDate.getText().toString(), getString(R.string.date_format));
+        if (!sellDateValid) {
             isValid = false;
-        } else {
-            binding.editItemSellDate.setTextColor(defaultEditSellDateColor);
         }
-        if (!itemValidationModel.priceIsValid(editSellPrice.getText().toString())) {
-            binding.editItemSellPrice.setTextColor(Color.RED);
+        updateTextViewColors(sellDateValid, binding.editItemSellDate, defaultEditSellDateColor);
+
+        boolean sellPriceValid = itemValidationModel.priceIsValid(editSellPrice.getText().toString());
+        if (!sellPriceValid) {
             isValid = false;
-        } else {
-            binding.editItemSellPrice.setTextColor(defaultEditSellPriceColor);
         }
+        updateTextViewColors(sellPriceValid, binding.editItemSellPrice, defaultEditSellPriceColor);
+
         return isValid;
+    }
+
+    private void updateTextViewColors(boolean setWrong, TextView textView, int defaultColor) {
+        if (setWrong) {
+            textView.setTextColor(wrongColor);
+        } else {
+            textView.setTextColor(defaultColor);
+        }
     }
 
     private boolean allSellFieldsAreEmpty() {
