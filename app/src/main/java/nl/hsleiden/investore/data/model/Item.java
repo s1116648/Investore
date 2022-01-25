@@ -1,6 +1,5 @@
 package nl.hsleiden.investore.data.model;
 
-import java.text.DecimalFormat;
 import java.util.UUID;
 
 public class Item {

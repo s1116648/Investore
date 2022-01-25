@@ -1,9 +1,5 @@
 package nl.hsleiden.investore.data.tools;
 
-import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
-
-import android.util.Log;
-
 import java.text.DecimalFormat;
 
 public class ItemDataToStringTool {
