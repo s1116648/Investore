@@ -24,7 +24,7 @@
         android:padding="4dp"
         android:text="item name"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/profit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -127,5 +127,32 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sell_date" />
+
+    <TextView
+        android:id="@+id/item_profit"
+        android:layout_width="wrap_content"
+        android:padding="2dp"
+        android:layout_height="wrap_content"
+        android:text="€[profit]"
+        app:layout_constraintBottom_toTopOf="@+id/item_notes"
+        app:layout_constraintEnd_toStartOf="@+id/item_profit_percentage" />
+
+    <TextView
+        android:id="@+id/item_profit_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="[profitPercentage]%"
+        app:layout_constraintBottom_toTopOf="@+id/item_notes"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/profit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profit:"
+        android:padding="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/item_notes"
+        app:layout_constraintEnd_toStartOf="@+id/item_profit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

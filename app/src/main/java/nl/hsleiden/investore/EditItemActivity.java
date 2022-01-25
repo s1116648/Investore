@@ -124,6 +124,7 @@ public class EditItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(fieldsAreValid()) {
                     Item item = generateItemFromInputs();
+                    Log.d(TAG, "onClick: itemFromInputs: " + item.toString());
                     investoreDB.updateItem(item);
                     toastEditedSuccess();
                     goToNavigationView();
@@ -187,6 +188,7 @@ public class EditItemActivity extends AppCompatActivity {
         binding.editItemBuyPrice.setTextColor(editBuyPriceColor);
 
         if (allSellFieldsAreEmpty()) {
+            Log.d(TAG, "fieldsAreValid: allSellFieldsAreEmpty(): " + allSellFieldsAreEmpty());
             return isValid;
         }
 
@@ -212,10 +214,10 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     private boolean allSellFieldsAreEmpty() {
-        if (binding.editSellDate.getText().toString().equals("")) {
+        if (!binding.editSellDate.getText().toString().equals("")) {
             return false;
         }
-        if (binding.editSellPrice.getText().toString().equals("")) {
+        if (!binding.editSellPrice.getText().toString().equals("")) {
             return false;
         }
         return true;
@@ -228,10 +230,11 @@ public class EditItemActivity extends AppCompatActivity {
         double itemBuyPrice = Double.parseDouble(editBuyPrice.getText().toString());
         String itemNotes = editNotes.getText().toString();
         if (allSellFieldsAreEmpty()) {
+            Log.d(TAG, "generateItemFromInputs: not sold item");
             return new Item(itemId, itemName, itemNotes, itemEntryDate, itemBuyPrice);
         }
         String itemSellDate = editSellDate.getText().toString();
-        double itemSellPrice = Double.parseDouble(editBuyPrice.getText().toString());
+        double itemSellPrice = Double.parseDouble(editSellPrice.getText().toString());
         return new Item(itemId, itemName, itemNotes, itemEntryDate, itemSellDate, true, itemBuyPrice, itemSellPrice);
     }
 

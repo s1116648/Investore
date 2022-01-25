@@ -2,6 +2,7 @@ package nl.hsleiden.investore.ui.items;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import java.util.List;
 import nl.hsleiden.investore.EditItemActivity;
 import nl.hsleiden.investore.R;
 import nl.hsleiden.investore.data.model.Item;
+import nl.hsleiden.investore.data.tools.ItemDataToStringTool;
 import nl.hsleiden.investore.databinding.ListItemsBinding;
 
 
@@ -81,19 +83,60 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             }
             listItemsBinding.itemEntryDate.setText(item.getEntryDate());
             listItemsBinding.itemBuyPrice.setText(Double.toString(item.getBuyPrice()));
-            if (item.getSold()) {
-                listItemsBinding.sellDate.setVisibility(View.VISIBLE);
-                listItemsBinding.itemSellDate.setVisibility(View.VISIBLE);
-                listItemsBinding.itemSellDate.setText(item.getSellDate());
-                listItemsBinding.sellPrice.setVisibility(View.VISIBLE);
-                listItemsBinding.itemSellPrice.setVisibility(View.VISIBLE);
-                listItemsBinding.itemSellPrice.setText(Double.toString(item.getSellPrice()));
-            } else {
-                listItemsBinding.sellDate.setVisibility(View.GONE);
-                listItemsBinding.itemSellDate.setVisibility(View.GONE);
-                listItemsBinding.sellPrice.setVisibility(View.GONE);
-                listItemsBinding.itemSellPrice.setVisibility(View.GONE);
+
+            setUpSoldData(item);
+        }
+
+        private void setUpSoldData(Item item) {
+            boolean sold = item.getSold();
+            setUpSoldFieldsVisibilities(sold);
+            if (sold) {
+                fillInSoldTextFields(item);
+
+                fillInProfitTextFields(item);
             }
+        }
+
+        private void setUpSoldFieldsVisibilities(boolean sold) {
+            int visibility;
+            if (sold) {
+                visibility = View.VISIBLE;
+            } else {
+                visibility = View.GONE;
+            }
+            listItemsBinding.sellDate.setVisibility(visibility);
+            listItemsBinding.itemSellDate.setVisibility(visibility);
+            listItemsBinding.sellPrice.setVisibility(visibility);
+            listItemsBinding.itemSellPrice.setVisibility(visibility);
+
+            listItemsBinding.profit.setVisibility(visibility);
+            listItemsBinding.itemProfit.setVisibility(visibility);
+            listItemsBinding.itemProfitPercentage.setVisibility(visibility);
+        }
+
+        private void fillInSoldTextFields(Item item) {
+            listItemsBinding.itemSellDate.setText(item.getSellDate());
+            listItemsBinding.itemSellPrice.setText(Double.toString(item.getSellPrice()));
+        }
+
+        private void fillInProfitTextFields(Item item) {
+            setUpProfitColors(item.getProfit());
+            ItemDataToStringTool stringTool = new ItemDataToStringTool();
+            String profitString = stringTool.doubleInCurrency(item.getProfit(), "€"); // ToDo not hardcode currency
+            listItemsBinding.itemProfit.setText(profitString);
+            String profitPercentageString = stringTool.doubleInPercentage(item.getProfitPercentage());
+            listItemsBinding.itemProfitPercentage.setText(profitPercentageString);
+        }
+
+        private void setUpProfitColors(double profit) {
+            int profitColor;
+            if (profit > 0) {
+                profitColor = Color.GREEN;
+            } else {
+                profitColor = Color.RED;
+            }
+            listItemsBinding.itemProfit.setTextColor(profitColor);
+            listItemsBinding.itemProfitPercentage.setTextColor(profitColor);
         }
     }
 }

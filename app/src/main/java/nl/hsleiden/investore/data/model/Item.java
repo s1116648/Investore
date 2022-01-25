@@ -129,6 +129,16 @@ public class Item {
         return formattedPriceString;
     }
 
+    public double getProfit() {
+        return sellPrice - buyPrice;
+    }
+
+    public double getProfitPercentage() {
+        double part = getProfit();
+        double whole = buyPrice;
+        return (part / whole) * 100;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
