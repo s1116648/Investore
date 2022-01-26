@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import nl.hsleiden.investore.data.GenerateExampleItems;
+import nl.hsleiden.investore.data.database.FirebaseService;
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
 
@@ -21,6 +22,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_test);
         loadDatabase();
+        initialiseFirebaseService();
     }
 
     private void loadDatabase() {
@@ -56,5 +58,15 @@ public class DatabaseTestActivity extends AppCompatActivity {
 
     public void putExampleItemsInDB(View view) {
         GenerateExampleItems.insertAllExampleItemsInDB(investoreDB);
+    }
+
+    private FirebaseService firebaseService;
+
+    private void initialiseFirebaseService() {
+        firebaseService = new FirebaseService();
+    }
+
+    public void writeMessageInFirebase(View view) {
+        firebaseService.writeAMessage();
     }
 }
