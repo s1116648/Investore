@@ -145,7 +145,6 @@ public class InvestoreDB extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_ITEM_NAME, item.getName());
-        Log.d(TAG, "updateItem: item.getName(): " + item.getName());
         contentValues.put(COLUMN_ITEM_NOTES, item.getNotes());
         contentValues.put(COLUMN_ITEM_ENTRY_DATE, item.getEntryDate());
         contentValues.put(COLUMN_ITEM_SELL_DATE, item.getSellDate());
