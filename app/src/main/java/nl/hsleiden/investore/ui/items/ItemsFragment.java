@@ -1,6 +1,9 @@
 package nl.hsleiden.investore.ui.items;
 
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +12,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 
+import nl.hsleiden.investore.data.FirebaseListener;
+import nl.hsleiden.investore.data.database.FirebaseService;
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
 import nl.hsleiden.investore.databinding.FragmentItemsBinding;
 
-public class ItemsFragment extends Fragment {
+public class ItemsFragment extends Fragment implements FirebaseListener {
     private FragmentItemsBinding binding;
 
     private InvestoreDB investoreDB;
     private ArrayList<Item> itemsList;
     private RecyclerView recyclerView;
+
+    private FirebaseService firebaseService;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +45,26 @@ public class ItemsFragment extends Fragment {
         setItemInfoFromDB();
         setAdapter();
 
+        loadFirebase();
+        // Test
+        setupEventListener("testPath");
+
+
         return root;
+    }
+
+    private void loadFirebase() {
+        firebaseService = new FirebaseService();
+    }
+
+    @Override
+    public void setupEventListener(String referencePath) {
+        firebaseService.setUpEventListener(referencePath, this);
+    }
+
+    @Override
+    public void receiveSnapshot(DataSnapshot snapshot) {
+        Log.d(TAG, "receiveSnapshot: Hoh, I recieved it: " + snapshot);
     }
 
     private void loadDatabase() {
