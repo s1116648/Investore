@@ -9,9 +9,18 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
 
+import nl.hsleiden.investore.AddItemActivity;
+import nl.hsleiden.investore.data.DatePickerListener;
+
 public class DatePickerFragment
         extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
+
+    private DatePickerListener listener;
+
+    public DatePickerFragment(DatePickerListener listener ) {
+        this.listener = listener;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -27,6 +36,8 @@ public class DatePickerFragment
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Do something with the date chosen by the user
+        int monthNumber = month + 1; // january is now 1 instead of 0
+        listener.receiveDate(day + "-" + monthNumber + "-" + year);
     }
 
 

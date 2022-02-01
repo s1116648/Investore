@@ -1,6 +1,7 @@
 package nl.hsleiden.investore;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,12 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import nl.hsleiden.investore.data.DatePickerListener;
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
+import nl.hsleiden.investore.data.tools.DatePickerFragment;
 import nl.hsleiden.investore.data.tools.ItemValidationModel;
 import nl.hsleiden.investore.databinding.ActivityAddItemBinding;
 
-public class AddItemActivity extends AppCompatActivity {
+public class AddItemActivity
+        extends AppCompatActivity
+        implements DatePickerListener {
 
     private EditText editName, editEntryDate, editBuyPrice, editNotes;
     private int defaultAddNameColor, defaultAddBuyDateColor, defaultAddBuyPriceColor;
@@ -67,6 +72,15 @@ public class AddItemActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void showDatePickerDialog(View view) {
+        DialogFragment newFragment = new DatePickerFragment(this);
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public void receiveDate(String date) {
+        binding.editEntryDate.setText(date);
     }
 
     private boolean fieldsAreValid() {

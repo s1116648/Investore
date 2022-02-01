@@ -44,15 +44,15 @@
     <EditText
         android:id="@+id/edit_entry_date"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
+        android:hint="@string/date_format"
         android:inputType="date"
         android:minHeight="48dp"
-        android:hint="@string/date_format"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintStart_toEndOf="@+id/add_item_buy_date"
         app:layout_constraintTop_toBottomOf="@+id/edit_name"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
@@ -71,13 +71,13 @@
         android:id="@+id/edit_buy_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="@string/double_format"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
-        android:hint="@string/double_format"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/add_item_buy_price"
         app:layout_constraintTop_toBottomOf="@+id/edit_entry_date" />
@@ -116,5 +116,19 @@
         android:text="Submit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_notes" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:onClick="showDatePickerDialog"
+        android:text="Select Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/edit_entry_date"
+        app:layout_constraintTop_toBottomOf="@+id/edit_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

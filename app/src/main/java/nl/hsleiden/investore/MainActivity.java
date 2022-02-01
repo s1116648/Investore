@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, DatabaseTestActivity.class));
     }
 
-    public void showDatePickerDialog(View view) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
+//    public void showDatePickerDialog(View view) {
+//        DialogFragment newFragment = new DatePickerFragment();
+//        newFragment.show(getSupportFragmentManager(), "datePicker");
+//    }
 }
