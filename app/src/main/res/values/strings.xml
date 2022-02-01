@@ -56,4 +56,5 @@
     <string name="edit_item_canceled">edit item is canceled</string>
     <string name="item_successfully_deleted">item is deleted</string>
     <string name="item_failure_failure">couldn\'t edit the item</string>
+    <string name="pick_date">pick date</string>
 </resources>

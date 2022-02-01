@@ -1,6 +1,7 @@
 package nl.hsleiden.investore;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
+import nl.hsleiden.investore.data.tools.DatePickerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,5 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToDatabaseTest(View view) {
         startActivity(new Intent(this, DatabaseTestActivity.class));
+    }
+
+    public void showDatePickerDialog(View view) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 }
