@@ -3,6 +3,7 @@ package nl.hsleiden.investore;
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,13 +14,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import nl.hsleiden.investore.data.DatePickerListener;
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
+import nl.hsleiden.investore.data.tools.DatePickerFragment;
 import nl.hsleiden.investore.data.tools.ItemValidationModel;
 import nl.hsleiden.investore.data.tools.ItemDataToStringTool;
 import nl.hsleiden.investore.databinding.ActivityEditItemBinding;
 
-public class EditItemActivity extends AppCompatActivity {
+public class EditItemActivity
+        extends AppCompatActivity
+        implements DatePickerListener {
 
     private EditText
             editName,
@@ -41,6 +46,13 @@ public class EditItemActivity extends AppCompatActivity {
             editSubmitButton,
             editCancelButton,
             editDeleteButton;
+
+    private enum DatePickerDate {
+        ENTRY_DATE,
+        DEFAULT,
+        SELL_DATE
+    }
+    private DatePickerDate datePickerDate;
 
     private ActivityEditItemBinding binding;
 
@@ -80,6 +92,8 @@ public class EditItemActivity extends AppCompatActivity {
         editDeleteButton = binding.editDeleteButton;
 
         stringTool = new ItemDataToStringTool();
+
+        datePickerDate = DatePickerDate.DEFAULT;
 
         setUpColors();
         loadItemDetails();
@@ -165,6 +179,31 @@ public class EditItemActivity extends AppCompatActivity {
                 goToNavigationView();
             }
         });
+    }
+
+    public void showEntryDatePickerDialog(View view) {
+        datePickerDate = DatePickerDate.ENTRY_DATE;
+        showDatePickerDialog(view);
+    }
+
+    public void showSellDatePickerDialog(View view) {
+        datePickerDate = DatePickerDate.SELL_DATE;
+        showDatePickerDialog(view);
+    }
+
+    private void showDatePickerDialog(View view) {
+        DialogFragment newFragment = new DatePickerFragment(this);
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public void receiveDate(String date) {
+        Log.d(TAG, "receiveDate: datePickerDate: " + datePickerDate);
+        switch (datePickerDate) {
+            case ENTRY_DATE:
+                binding.editEntryDate.setText(date);
+            case SELL_DATE:
+                binding.editSellDate.setText(date);
+        }
     }
 
     private boolean fieldsAreValid() {

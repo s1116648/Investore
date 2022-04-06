@@ -7,12 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import nl.hsleiden.investore.R;
 import nl.hsleiden.investore.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
