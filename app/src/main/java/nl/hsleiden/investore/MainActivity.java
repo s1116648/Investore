@@ -39,8 +39,4 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(new Intent(this, NavigationActivity.class));
     }
-
-    public void goToDatabaseTest(View view) {
-        startActivity(new Intent(this, DatabaseTestActivity.class));
-    }
 }
