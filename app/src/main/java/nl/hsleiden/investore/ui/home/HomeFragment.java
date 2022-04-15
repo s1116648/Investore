@@ -1,5 +1,6 @@
 package nl.hsleiden.investore.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import nl.hsleiden.investore.DatabaseTestActivity;
 import nl.hsleiden.investore.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -29,5 +31,9 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void goToDatabaseTest(View view) {
+        startActivity(new Intent(getActivity(), DatabaseTestActivity.class));
     }
 }

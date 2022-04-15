@@ -31,32 +31,16 @@ public class MainActivity extends AppCompatActivity {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-    }
 
-    private void updateUI(GoogleSignInAccount account) {
-        if (account == null) {
-            findViewById(R.id.button4).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.button4).setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void goToNavigation(View view) {
         startActivity(new Intent(this, NavigationActivity.class));
     }
 
     public void goToDatabaseTest(View view) {
         startActivity(new Intent(this, DatabaseTestActivity.class));
     }
-
-//    public void showDatePickerDialog(View view) {
-//        DialogFragment newFragment = new DatePickerFragment();
-//        newFragment.show(getSupportFragmentManager(), "datePicker");
-//    }
 }
