@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class ItemsFragment extends Fragment implements FirebaseListener {
 
     private FirebaseService firebaseService;
 
+    private GoogleSignInAccount account;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -41,16 +45,44 @@ public class ItemsFragment extends Fragment implements FirebaseListener {
 
         recyclerView = binding.recyclerView;
 
-        loadDatabase();
-        setItemInfoFromDB();
-        setAdapter();
+        if (checkLoggedIn()) {loadDatabase();
+            setItemInfoFromDB();
+            setAdapter();
 
-        loadFirebase();
-        // Test
-        setupEventListener("testPath");
-
+            loadFirebase();
+            // Test
+            setupEventListener("testPath");
+        } else {
+            boolean loggedIn = false;
+            updateUI(loggedIn);
+        }
 
         return root;
+    }
+
+    private boolean checkLoggedIn() {
+        GoogleSignInAccount account = getAccount();
+        if (account == null) {
+            return false;
+        }
+        this.account = account;
+        return true;
+    }
+
+    private void updateUI(Boolean loggedIn) {
+        // ToDo
+    }
+
+    private GoogleSignInAccount getAccount() {
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        return GoogleSignIn.getLastSignedInAccount(getContext());
+    }
+
+    private void loadDatabase() {
+        if (investoreDB == null) {
+            investoreDB = new InvestoreDB(binding.getRoot().getContext(), account.getEmail());
+        }
     }
 
     private void loadFirebase() {
@@ -67,12 +99,6 @@ public class ItemsFragment extends Fragment implements FirebaseListener {
         Log.d(TAG, "receiveSnapshot: Hoh, I recieved it: " + snapshot);
     }
 
-    private void loadDatabase() {
-        if (investoreDB == null) {
-            investoreDB = new InvestoreDB(binding.getRoot().getContext());
-        }
-    }
-
     private void setAdapter() {
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext());
         binding.recyclerView.setAdapter(recyclerAdapter);
@@ -82,7 +108,6 @@ public class ItemsFragment extends Fragment implements FirebaseListener {
     private void setItemInfoFromDB() {
         itemsList = investoreDB.getAllItems();
     }
-
 
     @Override
     public void onDestroyView() {

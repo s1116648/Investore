@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 import java.util.ArrayList;
 
 import nl.hsleiden.investore.data.database.InvestoreDB;
@@ -24,6 +27,8 @@ public class StatisticsFragment extends Fragment {
     private ItemsStatistics stats;
     private ItemDataToStringTool stringTool;
 
+    private GoogleSignInAccount account;
+
     private ArrayList<Item> items;
 
 
@@ -35,10 +40,33 @@ public class StatisticsFragment extends Fragment {
         binding = FragmentStatisticsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        initialiseVariables();
-        setUpStatisticFields();
-
+        if (checkLoggedIn()) {
+            initialiseVariables();
+            setUpStatisticFields();
+        } else {
+            boolean loggedIn = false;
+            updateUI(loggedIn);
+        }
         return root;
+    }
+
+    private boolean checkLoggedIn() {
+        GoogleSignInAccount account = getAccount();
+        if (account == null) {
+            return false;
+        }
+        this.account = account;
+        return true;
+    }
+
+    private void updateUI(Boolean loggedIn) {
+        // ToDo
+    }
+
+    private GoogleSignInAccount getAccount() {
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        return GoogleSignIn.getLastSignedInAccount(getContext());
     }
 
     private void initialiseVariables() {
@@ -55,7 +83,7 @@ public class StatisticsFragment extends Fragment {
 
     private void loadDatabase() {
         if (investoreDB == null) {
-            investoreDB = new InvestoreDB(binding.getRoot().getContext());
+            investoreDB = new InvestoreDB(binding.getRoot().getContext(), account.getEmail());
         }
     }
 
@@ -69,7 +97,6 @@ public class StatisticsFragment extends Fragment {
         binding.totalSoldProfit.setText(totalSoldProfit);
         String averageSoldPercentage = stringTool.doubleInPercentage(stats.getAverageSoldProfitPercentage());
         binding.averageSoldPercentage.setText(averageSoldPercentage);
-
     }
 
     @Override

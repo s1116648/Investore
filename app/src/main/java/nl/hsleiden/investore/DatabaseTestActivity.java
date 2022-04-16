@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 import java.util.Random;
 import java.util.UUID;
 
@@ -17,17 +20,44 @@ public class DatabaseTestActivity extends AppCompatActivity {
 
     private InvestoreDB investoreDB;
 
+    private GoogleSignInAccount account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_test);
-        loadDatabase();
-        initialiseFirebaseService();
+
+        if (checkLoggedIn()) {
+            loadDatabase();
+            initialiseFirebaseService();
+        } else {
+            boolean loggedIn = false;
+            updateUI(loggedIn);
+        }
+    }
+
+    private boolean checkLoggedIn() {
+        GoogleSignInAccount account = getAccount();
+        if (account == null) {
+            return false;
+        }
+        this.account = account;
+        return true;
+    }
+
+    private void updateUI(Boolean loggedIn) {
+        // ToDo
+    }
+
+    private GoogleSignInAccount getAccount() {
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        return GoogleSignIn.getLastSignedInAccount(this);
     }
 
     private void loadDatabase() {
         if (investoreDB == null) {
-            investoreDB = new InvestoreDB(this);
+            investoreDB = new InvestoreDB(this, account.getEmail());
         }
     }
 

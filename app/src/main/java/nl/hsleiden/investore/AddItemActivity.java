@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 import nl.hsleiden.investore.data.DatePickerListener;
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
@@ -46,8 +49,21 @@ public class AddItemActivity
 
     private void loadDatabase() {
         if (investoreDB == null) {
-            investoreDB = new InvestoreDB(this);
+            String accountMail = getAccountMail();
+            investoreDB = new InvestoreDB(this, accountMail);
         }
+    }
+
+    private String getAccountMail() {
+        GoogleSignInAccount account = getAccount();
+        return account.getEmail();
+    }
+
+    private GoogleSignInAccount getAccount() {
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        return account;
     }
 
     private void assignVariables() {

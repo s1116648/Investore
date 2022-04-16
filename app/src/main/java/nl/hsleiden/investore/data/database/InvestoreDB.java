@@ -12,11 +12,12 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import nl.hsleiden.investore.R;
 import nl.hsleiden.investore.data.model.Item;
 
 public class InvestoreDB extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "myDB";
+//    private static final String DATABASE_NAME = "myDB";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "Items";
     private static final String COLUMN_ITEM_ID = "itemID"; // Datatype: varchar(36)
@@ -28,9 +29,12 @@ public class InvestoreDB extends SQLiteOpenHelper {
     private static final String COLUMN_ITEM_BUY_PRICE = "itemBuyPrice"; // Datatype: REAL
     private static final String COLUMN_ITEM_SELL_PRICE = "itemSellPrice"; // Datatype: REAL
 
+    private String dataBaseName;
 
-    public InvestoreDB(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
+    public InvestoreDB(Context context, String accountMail) {
+        super(context, accountMail, null, DATABASE_VERSION);
+        dataBaseName = accountMail;
     }
 
     @Override

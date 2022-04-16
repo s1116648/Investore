@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 import nl.hsleiden.investore.data.DatePickerListener;
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
@@ -60,6 +63,8 @@ public class EditItemActivity
     private InvestoreDB investoreDB;
     private ItemDataToStringTool stringTool;
 
+    private GoogleSignInAccount account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,13 +72,38 @@ public class EditItemActivity
         binding = ActivityEditItemBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        loadDatabase();
-        assignVariables();
+        if (checkLoggedIn()) {
+            loadDatabase();
+            assignVariables();
+        } else {
+            boolean loggedIn = false;
+            updateUI(loggedIn);
+        }
     }
+
+    private boolean checkLoggedIn() {
+        GoogleSignInAccount account = getAccount();
+        if (account == null) {
+            return false;
+        }
+        this.account = account;
+        return true;
+    }
+
+    private void updateUI(Boolean loggedIn) {
+        // ToDo
+    }
+
+    private GoogleSignInAccount getAccount() {
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        return GoogleSignIn.getLastSignedInAccount(this);
+    }
+
 
     private void loadDatabase() {
         if (investoreDB == null) {
-            investoreDB = new InvestoreDB(this);
+            investoreDB = new InvestoreDB(this, account.getEmail());
         }
     }
 
