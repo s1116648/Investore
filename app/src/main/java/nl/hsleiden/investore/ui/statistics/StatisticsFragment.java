@@ -97,6 +97,9 @@ public class StatisticsFragment extends Fragment {
         binding.totalSoldProfit.setText(totalSoldProfit);
         String averageSoldPercentage = stringTool.doubleInPercentage(stats.getAverageSoldProfitPercentage());
         binding.averageSoldPercentage.setText(averageSoldPercentage);
+
+        binding.itemCount.setText(String.valueOf(stats.getItemsSize()));
+        binding.soldItemCount.setText(String.valueOf(stats.getNumberOfSoldItems()));
     }
 
     @Override

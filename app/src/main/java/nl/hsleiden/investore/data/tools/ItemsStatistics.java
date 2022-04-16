@@ -48,4 +48,18 @@ public class ItemsStatistics {
         }
         return totalSoldProfitPercentage / numberOfSoldItems;
     }
+
+    public int getItemsSize() {
+        return items.size();
+    }
+
+    public int getNumberOfSoldItems() {
+        int numberOfSoldItems = 0;
+        for (Item item : items) {
+            if (item.getSold()) {
+                numberOfSoldItems++;
+            }
+        }
+        return numberOfSoldItems;
+    }
 }
