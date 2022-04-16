@@ -10,12 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 import nl.hsleiden.investore.DatabaseTestActivity;
 import nl.hsleiden.investore.databinding.FragmentHomeBinding;
+import nl.hsleiden.investore.ui.login.SignInActivity;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+
+    private GoogleSignInClient mGoogleSignInClient;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -23,8 +31,26 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
         return root;
+    }
+
+    @Override
+    public void onStart() {
+        updateSignedIn();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        updateSignedIn();
+
+        super.onResume();
     }
 
     @Override
@@ -33,7 +59,18 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    public void goToDatabaseTest(View view) {
-        startActivity(new Intent(getActivity(), DatabaseTestActivity.class));
+    private void updateSignedIn() {
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getActivity());
+        updateUI(account);
+    }
+
+    private void updateUI(GoogleSignInAccount account) {
+        if (account == null) {
+            binding.homeLoginInstructions.setVisibility(View.VISIBLE);
+        } else {
+            binding.homeLoginInstructions.setVisibility(View.GONE);
+        }
     }
 }

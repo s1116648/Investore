@@ -24,6 +24,9 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
+    <!-- Home Activity -->
+    <string name="login_instructions">Press the ⋮ on the top to login</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

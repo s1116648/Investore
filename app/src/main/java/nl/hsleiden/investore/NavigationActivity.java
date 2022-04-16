@@ -94,7 +94,7 @@ public class NavigationActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_logout:
                 logoutNav();
-                return true;
+                startActivity(new Intent(this, SignInActivity.class));
             case R.id.action_login:
                 startActivity(new Intent(this, SignInActivity.class));
             default:
