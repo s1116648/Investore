@@ -129,6 +129,6 @@ public class DatabaseTestActivity
     }
 
     public void getItemsFromDB(View view) {
-        firebaseService.getDB(account.getEmail(), investoreDB);
+        firebaseService.getDB(account.getEmail(), investoreDB, this);
     }
 }

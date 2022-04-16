@@ -1,11 +1,10 @@
 package nl.hsleiden.investore.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,9 +14,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
-import nl.hsleiden.investore.DatabaseTestActivity;
+import java.util.ArrayList;
+
+import nl.hsleiden.investore.R;
+import nl.hsleiden.investore.data.database.FirebaseService;
+import nl.hsleiden.investore.data.database.InvestoreDB;
+import nl.hsleiden.investore.data.model.Item;
 import nl.hsleiden.investore.databinding.FragmentHomeBinding;
-import nl.hsleiden.investore.ui.login.SignInActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -25,27 +28,22 @@ public class HomeFragment extends Fragment {
 
     private GoogleSignInClient mGoogleSignInClient;
 
+    private  GoogleSignInAccount account;
+
+    private InvestoreDB investoreDB;
+    private FirebaseService firebaseService;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        binding.button3.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        goToDatabaseTest();
-                    }
-                }
-        );
-
         return root;
     }
 
     @Override
     public void onStart() {
-        updateSignedIn();
 
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -53,38 +51,90 @@ public class HomeFragment extends Fragment {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
+        if (checkLoggedIn()) {
+            loadDatabase();
+            initialiseFirebaseService();
+            buttonSetup();
+        } else {
+            boolean loggedIn = false;
+            updateUI(loggedIn);
+        }
+
+
         super.onStart();
     }
 
-    @Override
-    public void onResume() {
-        updateSignedIn();
+    private boolean checkLoggedIn() {
+        GoogleSignInAccount account = getAccount();
+        if (account == null) {
+            return false;
+        }
+        this.account = account;
+        return true;
+    }
 
-        super.onResume();
+    private void updateUI(Boolean loggedIn) {
+        if (loggedIn) {
+            binding.homeLoginInstructions.setVisibility(View.GONE);
+            binding.homeInstructions.setVisibility(View.VISIBLE);
+            binding.cloudOptions.setVisibility(View.VISIBLE);
+            binding.homeExportButton.setVisibility(View.VISIBLE);
+            binding.homeExportButton.setVisibility(View.VISIBLE);
+        } else {
+            binding.homeLoginInstructions.setVisibility(View.VISIBLE);
+            binding.homeInstructions.setVisibility(View.GONE);
+            binding.cloudOptions.setVisibility(View.GONE);
+            binding.homeExportButton.setVisibility(View.GONE);
+            binding.homeExportButton.setVisibility(View.GONE);
+        }
+    }
+
+    private GoogleSignInAccount getAccount() {
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        return GoogleSignIn.getLastSignedInAccount(getContext());
+    }
+
+    private void loadDatabase() {
+        if (investoreDB == null) {
+            investoreDB = new InvestoreDB(getContext(), account.getEmail());
+        }
+    }
+
+    private void initialiseFirebaseService() {
+        firebaseService = new FirebaseService();
+    }
+
+    private void buttonSetup() {
+        binding.homeExportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                exportDB();
+            }
+        });
+        binding.homeImportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                importDB();
+            }
+        });
+    }
+
+    public void exportDB() {
+        ArrayList<Item> items = investoreDB.getAllItems();
+        for (Item item : items) {
+            firebaseService.writeDB(account.getEmail(), item);
+        }
+        Toast.makeText(getContext(), R.string.items_exported, Toast.LENGTH_SHORT).show();
+    }
+
+    public void importDB() {
+        firebaseService.getDB(account.getEmail(), investoreDB, getContext());
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private void updateSignedIn() {
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getActivity());
-        updateUI(account);
-    }
-
-    private void updateUI(GoogleSignInAccount account) {
-        if (account == null) {
-            binding.homeLoginInstructions.setVisibility(View.VISIBLE);
-        } else {
-            binding.homeLoginInstructions.setVisibility(View.GONE);
-        }
-    }
-
-    public void goToDatabaseTest() {
-        startActivity(new Intent(getContext(), DatabaseTestActivity.class));
     }
 }

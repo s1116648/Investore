@@ -2,7 +2,9 @@ package nl.hsleiden.investore.data.database;
 
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -20,6 +22,7 @@ import org.json.JSONStringer;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.hsleiden.investore.R;
 import nl.hsleiden.investore.data.FirebaseListener;
 import nl.hsleiden.investore.data.model.Item;
 import nl.hsleiden.investore.data.model.Items;
@@ -63,7 +66,7 @@ public class FirebaseService {
         });
     }
 
-    public ArrayList<Items> getDB(String accountMail, InvestoreDB investoreDB) {
+    public ArrayList<Items> getDB(String accountMail, InvestoreDB investoreDB, Context context) {
         DatabaseReference myRef = firebaseDatabase.getReference(makeValidPath(accountMail));
         Log.d(TAG, "getDB: HEY");
         myRef.child("items").get().addOnCompleteListener(
@@ -86,6 +89,7 @@ public class FirebaseService {
                                 Item item = ds.getValue(Item.class);
                                 investoreDB.addItem(item);
                             }
+                            Toast.makeText(context, R.string.items_exported, Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
