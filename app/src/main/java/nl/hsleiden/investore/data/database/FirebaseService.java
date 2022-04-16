@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +63,9 @@ public class FirebaseService {
         });
     }
 
-    public ArrayList<Items> getDB(String accountMail) {
+    public ArrayList<Items> getDB(String accountMail, InvestoreDB investoreDB) {
         DatabaseReference myRef = firebaseDatabase.getReference(makeValidPath(accountMail));
+        Log.d(TAG, "getDB: HEY");
         myRef.child("items").get().addOnCompleteListener(
                 new OnCompleteListener<DataSnapshot>() {
                     @Override
@@ -73,11 +75,22 @@ public class FirebaseService {
                         }
                         else {
                             Log.d("firebase", String.valueOf(task.getResult().getValue()));
+//                            Log.d(TAG, "onComplete: " + task.getResult().getChildrenCount());
+//                            Iterable<DataSnapshot> dataSnapshotIterable = task.getResult().getChildren();
+//                            for (DataSnapshot dataSnapshot : dataSnapshotIterable
+//                                 ) {
+//                                Log.d(TAG, "onComplete: " + dataSnapshot.getChildren());
+//                            }
+                            investoreDB.clearItems();
+                            for (DataSnapshot ds : task.getResult().getChildren()) {
+                                Item item = ds.getValue(Item.class);
+                                investoreDB.addItem(item);
+                            }
                         }
                     }
                 }
         );
-        return null; // ToDo
+        return null;
     }
 
     public void writeAMessage() {

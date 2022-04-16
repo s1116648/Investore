@@ -121,17 +121,14 @@ public class DatabaseTestActivity
     }
 
     public void sendItemsToDB(View view) {
-        DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
         ArrayList<Item> items = investoreDB.getAllItems();
         for (Item item : items) {
-            mDatabase.child("items").child(item.getID()).setValue(item);
 
             firebaseService.writeDB(account.getEmail(), item);
         }
-//        Log.d(TAG, "sendItemsToDB: " + mDatabase.child("items").getDatabase);
-//        firebaseService.writeDB(account.getEmail(), mDatabase);
+    }
+
+    public void getItemsFromDB(View view) {
+        firebaseService.getDB(account.getEmail(), investoreDB);
     }
 }
