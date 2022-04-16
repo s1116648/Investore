@@ -1,22 +1,32 @@
 package nl.hsleiden.investore;
 
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 
+import nl.hsleiden.investore.data.FirebaseListener;
 import nl.hsleiden.investore.data.GenerateExampleItems;
 import nl.hsleiden.investore.data.database.FirebaseService;
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
 
-public class DatabaseTestActivity extends AppCompatActivity {
+public class DatabaseTestActivity
+        extends AppCompatActivity
+        implements FirebaseListener {
 
     private InvestoreDB investoreDB;
 
@@ -98,5 +108,30 @@ public class DatabaseTestActivity extends AppCompatActivity {
 
     public void writeMessageInFirebase(View view) {
         firebaseService.writeAMessage();
+    }
+
+    @Override
+    public void setupEventListener(String referencePath) {
+        firebaseService.setUpEventListener(referencePath, this);
+    }
+
+    @Override
+    public void receiveSnapshot(DataSnapshot snapshot) {
+        Log.d(TAG, "receiveSnapshot: Hoh, I recieved it: " + snapshot);
+    }
+
+    public void sendItemsToDB(View view) {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+        ArrayList<Item> items = investoreDB.getAllItems();
+        for (Item item : items) {
+            mDatabase.child("items").child(item.getID()).setValue(item);
+
+            firebaseService.writeDB(account.getEmail(), item);
+        }
+//        Log.d(TAG, "sendItemsToDB: " + mDatabase.child("items").getDatabase);
+//        firebaseService.writeDB(account.getEmail(), mDatabase);
     }
 }

@@ -52,6 +52,8 @@ public class ItemsFragment extends Fragment implements FirebaseListener {
             loadFirebase();
             // Test
             setupEventListener("testPath");
+
+            Log.d(TAG, "onCreateView: kaasjes!");
         } else {
             boolean loggedIn = false;
             updateUI(loggedIn);

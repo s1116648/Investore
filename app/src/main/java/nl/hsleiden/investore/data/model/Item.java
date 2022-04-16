@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Item {
 
-    private final String ID; // can be used as a key
+    private String ID; // can be used as a key
 
     private String name;
     private String notes;
@@ -13,6 +13,8 @@ public class Item {
     private boolean sold;
     private double buyPrice;
     private double sellPrice;
+
+    public Item() {}
 
     public Item(String name, String notes, String entryDate, double buyPrice) {
         this.ID = UUID.randomUUID().toString(); // generates an unique id

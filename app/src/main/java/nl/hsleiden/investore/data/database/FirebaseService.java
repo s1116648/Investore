@@ -6,15 +6,22 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import nl.hsleiden.investore.data.FirebaseListener;
+import nl.hsleiden.investore.data.model.Item;
+import nl.hsleiden.investore.data.model.Items;
 
 public class FirebaseService {
 
@@ -24,6 +31,53 @@ public class FirebaseService {
 
     public FirebaseService() {
         firebaseDatabase = FirebaseDatabase.getInstance(DATABASE_URL);
+    }
+
+    public void writeDB(String accountMail, Item item) {
+        Log.d(TAG, "writeDB: " + makeValidPath(accountMail));
+        DatabaseReference myRef = firebaseDatabase.getReference(makeValidPath(accountMail));
+
+        myRef.child("items").child(item.getID()).child("ID").setValue(item.getID());
+        myRef.child("items").child(item.getID()).child("name").setValue(item.getName());
+        myRef.child("items").child(item.getID()).child("notes").setValue(item.getNotes());
+        myRef.child("items").child(item.getID()).child("entryDate").setValue(item.getEntryDate());
+        myRef.child("items").child(item.getID()).child("sellDate").setValue(item.getSellDate());
+        myRef.child("items").child(item.getID()).child("sold").setValue(item.getSold());
+        myRef.child("items").child(item.getID()).child("buyPrice").setValue(item.getBuyPrice());
+        myRef.child("items").child(item.getID()).child("sellPrice").setValue(item.getSellPrice());
+
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Item receivedItem = dataSnapshot.child("items").child(item.getID()).getValue(Item.class);
+                Log.d(TAG, "onDataChange: " + receivedItem.toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    public ArrayList<Items> getDB(String accountMail) {
+        DatabaseReference myRef = firebaseDatabase.getReference(makeValidPath(accountMail));
+        myRef.child("items").get().addOnCompleteListener(
+                new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        }
+                        else {
+                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                        }
+                    }
+                }
+        );
+        return null; // ToDo
     }
 
     public void writeAMessage() {
@@ -72,5 +126,13 @@ public class FirebaseService {
         });
     }
 
+    private String makeValidPath(String string) {
+        string = string.replace(".", "");
+        string = string.replace("#", "");
+        string = string.replace("$", "");
+        string = string.replace("[", "");
+        string = string.replace("]", "");
+        return string;
+    }
 
 }
