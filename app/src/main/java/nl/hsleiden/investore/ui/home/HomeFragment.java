@@ -55,9 +55,9 @@ public class HomeFragment extends Fragment {
             loadDatabase();
             initialiseFirebaseService();
             buttonSetup();
+            updateUI(true);
         } else {
-            boolean loggedIn = false;
-            updateUI(loggedIn);
+            updateUI(false);
         }
 
 

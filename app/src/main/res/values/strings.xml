@@ -61,7 +61,7 @@
     <string name="item_failure_failure">couldn\'t edit the item</string>
     <string name="pick_date">pick date</string>
     <string name="login_required">Please login first</string>
-    <string name="home_instructions">Click on the ☰ to navigate or the + to ad an item</string>
+    <string name="home_instructions">Click on the ☰ to navigate or the + to add an item</string>
     <string name="home_import">Export</string>
     <string name="export">Import</string>
     <string name="home_cloud_options">Cloud options</string>
