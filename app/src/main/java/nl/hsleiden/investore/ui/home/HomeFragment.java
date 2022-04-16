@@ -31,6 +31,15 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        binding.button3.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        goToDatabaseTest();
+                    }
+                }
+        );
+
         return root;
     }
 
@@ -72,5 +81,9 @@ public class HomeFragment extends Fragment {
         } else {
             binding.homeLoginInstructions.setVisibility(View.GONE);
         }
+    }
+
+    public void goToDatabaseTest() {
+        startActivity(new Intent(getContext(), DatabaseTestActivity.class));
     }
 }
