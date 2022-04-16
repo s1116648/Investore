@@ -60,4 +60,5 @@
     <string name="item_successfully_deleted">item is deleted</string>
     <string name="item_failure_failure">couldn\'t edit the item</string>
     <string name="pick_date">pick date</string>
+    <string name="login_required">Please login first</string>
 </resources>

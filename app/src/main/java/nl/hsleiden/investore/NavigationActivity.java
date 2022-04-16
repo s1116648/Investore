@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -63,10 +64,7 @@ public class NavigationActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
+        updateSignedIn();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -102,6 +100,17 @@ public class NavigationActivity extends AppCompatActivity {
         }
     }
 
+    private void updateSignedIn() {
+        updateUI(getAccount());
+    }
+
+    private GoogleSignInAccount getAccount() {
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        return account;
+    }
+
     public void logoutNav() {
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
@@ -134,10 +143,9 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     public boolean onPrepareOptionsMenu(Menu menu) {
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         MenuItem login = menu.findItem(R.id.action_login);
         MenuItem logout = menu.findItem(R.id.action_logout);
-        if(account == null) {
+        if(getAccount() == null) {
             login.setVisible(true);
             logout.setVisible(false);
         } else {
@@ -148,6 +156,10 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void goToAddItem() {
-        startActivity(new Intent(this, AddItemActivity.class));
+        if (getAccount() == null) {
+            Toast.makeText(this, R.string.login_required, Toast.LENGTH_SHORT).show();
+        } else {
+            startActivity(new Intent(this, AddItemActivity.class));
+        }
     }
 }
