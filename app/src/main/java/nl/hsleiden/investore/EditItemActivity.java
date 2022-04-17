@@ -1,6 +1,5 @@
 package nl.hsleiden.investore;
 
-import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -8,7 +7,6 @@ import androidx.fragment.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -250,7 +248,9 @@ public class EditItemActivity
         binding.editItemBuyDate.setTextColor(editEntryDateColor);
 
         int editBuyPriceColor;
-        if (!itemValidationModel.priceIsValid(editBuyPrice.getText().toString())) {
+        if (!itemValidationModel.priceIsValid
+                (editBuyPrice.getText().toString().replace(currency, ""))
+        ) {
             editBuyPriceColor = Color.RED;
             isValid = false;
         } else {
@@ -272,7 +272,9 @@ public class EditItemActivity
         binding.editItemSellDate.setTextColor(editSellDateColor);
 
         int editSellPriceColor;
-        if (!itemValidationModel.priceIsValid(editSellPrice.getText().toString())) {
+        if (!itemValidationModel.priceIsValid
+                (editSellPrice.getText().toString().replace(currency, ""))
+        ) {
             isValid = false;
             editSellPriceColor = wrongColor;
         } else {
@@ -297,13 +299,15 @@ public class EditItemActivity
         String itemId = item.getID();
         String itemName = editName.getText().toString();
         String itemEntryDate = editEntryDate.getText().toString();
-        double itemBuyPrice = Double.parseDouble(editBuyPrice.getText().toString());
+        double itemBuyPrice =
+                Double.parseDouble(editBuyPrice.getText().toString().replace(currency, ""));
         String itemNotes = editNotes.getText().toString();
         if (allSellFieldsAreEmpty()) {
             return new Item(itemId, itemName, itemNotes, itemEntryDate, itemBuyPrice);
         }
         String itemSellDate = editSellDate.getText().toString();
-        double itemSellPrice = Double.parseDouble(editSellPrice.getText().toString());
+        double itemSellPrice =
+                Double.parseDouble(editSellPrice.getText().toString().replace(currency, ""));
         return new Item(itemId, itemName, itemNotes, itemEntryDate, itemSellDate, true, itemBuyPrice, itemSellPrice);
     }
 
