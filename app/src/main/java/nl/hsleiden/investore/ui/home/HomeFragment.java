@@ -121,6 +121,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void exportDB() {
+        firebaseService.deleteDB(account.getEmail());
         ArrayList<Item> items = investoreDB.getAllItems();
         for (Item item : items) {
             firebaseService.writeDB(account.getEmail(), item);

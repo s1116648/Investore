@@ -49,26 +49,15 @@ public class FirebaseService {
         myRef.child("items").child(item.getID()).child("sold").setValue(item.getSold());
         myRef.child("items").child(item.getID()).child("buyPrice").setValue(item.getBuyPrice());
         myRef.child("items").child(item.getID()).child("sellPrice").setValue(item.getSellPrice());
+    }
 
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Item receivedItem = dataSnapshot.child("items").child(item.getID()).getValue(Item.class);
-                Log.d(TAG, "onDataChange: " + receivedItem.toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+    public void deleteDB(String accountMail) {
+        DatabaseReference myRef = firebaseDatabase.getReference(makeValidPath(accountMail));
+        myRef.child("items").removeValue();
     }
 
     public ArrayList<Items> getDB(String accountMail, InvestoreDB investoreDB, Context context) {
         DatabaseReference myRef = firebaseDatabase.getReference(makeValidPath(accountMail));
-        Log.d(TAG, "getDB: HEY");
         myRef.child("items").get().addOnCompleteListener(
                 new OnCompleteListener<DataSnapshot>() {
                     @Override
@@ -78,12 +67,6 @@ public class FirebaseService {
                         }
                         else {
                             Log.d("firebase", String.valueOf(task.getResult().getValue()));
-//                            Log.d(TAG, "onComplete: " + task.getResult().getChildrenCount());
-//                            Iterable<DataSnapshot> dataSnapshotIterable = task.getResult().getChildren();
-//                            for (DataSnapshot dataSnapshot : dataSnapshotIterable
-//                                 ) {
-//                                Log.d(TAG, "onComplete: " + dataSnapshot.getChildren());
-//                            }
                             investoreDB.clearItems();
                             for (DataSnapshot ds : task.getResult().getChildren()) {
                                 Item item = ds.getValue(Item.class);
