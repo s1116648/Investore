@@ -66,4 +66,15 @@
     <string name="export">Import</string>
     <string name="home_cloud_options">Cloud options</string>
     <string name="items_exported">items exported</string>
+    <string name="optional">(optional)</string>
+    <string name="submit">submit</string>
+    <string name="buy_price">Buy price:</string>
+    <string name="buy_date">Buy date:</string>
+    <string name="item_name">Item name:</string>
+    <string name="item_name_field">item name</string>
+    <string name="notes">Notes:</string>
+    <string name="sell_date">Sell date:</string>
+    <string name="sell_price">Sell price</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
 </resources>

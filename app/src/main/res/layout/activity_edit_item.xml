@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Item name:"
+        android:text="@string/item_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +24,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
-        android:hint="item name"
+        android:hint="@string/item_name_field"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Buy date:"
+        android:text="@string/buy_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_name" />
 
@@ -50,7 +50,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="@string/date_format"
-        android:inputType="textShortMessage"
+        android:inputType="date|textShortMessage"
         android:minHeight="48dp"
         app:layout_constraintEnd_toStartOf="@+id/edit_buy_date_picker"
         app:layout_constraintStart_toEndOf="@+id/edit_item_buy_date"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Buy price"
+        android:text="@string/buy_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_entry_date" />
 
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Notes"
+        android:text="@string/notes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_item_buy_price" />
 
@@ -102,7 +102,7 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:minHeight="48dp"
-        android:hint="(optional)"
+        android:hint="@string/optional"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_item_notes" />
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Sell date:"
+        android:text="@string/sell_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_notes" />
 
@@ -126,7 +126,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="@string/date_format"
-        android:inputType="textShortMessage"
+        android:inputType="date|textShortMessage"
         android:minHeight="48dp"
         app:layout_constraintEnd_toStartOf="@+id/edit_sell_date_picker"
         app:layout_constraintStart_toEndOf="@+id/edit_item_buy_date"
@@ -139,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Sell price"
+        android:text="@string/sell_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_sell_date" />
 
@@ -164,7 +164,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Submit"
+        android:text="@string/submit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_sell_price" />
 
@@ -174,7 +174,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:backgroundTint="#FFF000"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/edit_delete_button"
         app:layout_constraintStart_toEndOf="@+id/edit_submit_button"
@@ -187,7 +187,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="#FF0000"
-        android:text="Delete"
+        android:text="@string/delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_sell_price" />
 
