@@ -78,13 +78,13 @@ public class HomeFragment extends Fragment {
             binding.homeLoginInstructions.setVisibility(View.GONE);
             binding.homeInstructions.setVisibility(View.VISIBLE);
             binding.cloudOptions.setVisibility(View.VISIBLE);
-            binding.homeExportButton.setVisibility(View.VISIBLE);
+            binding.homeImportButton.setVisibility(View.VISIBLE);
             binding.homeExportButton.setVisibility(View.VISIBLE);
         } else {
             binding.homeLoginInstructions.setVisibility(View.VISIBLE);
             binding.homeInstructions.setVisibility(View.GONE);
             binding.cloudOptions.setVisibility(View.GONE);
-            binding.homeExportButton.setVisibility(View.GONE);
+            binding.homeImportButton.setVisibility(View.GONE);
             binding.homeExportButton.setVisibility(View.GONE);
         }
     }
