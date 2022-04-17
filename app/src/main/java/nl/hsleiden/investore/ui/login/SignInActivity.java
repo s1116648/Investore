@@ -67,7 +67,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        Log.d(TAG, "signIn: " + signInIntent);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
@@ -93,7 +92,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         }
     }
 

@@ -9,7 +9,6 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
 
-import nl.hsleiden.investore.AddItemActivity;
 import nl.hsleiden.investore.data.DatePickerListener;
 
 public class DatePickerFragment

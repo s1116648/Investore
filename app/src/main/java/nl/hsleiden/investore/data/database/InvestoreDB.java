@@ -162,10 +162,4 @@ public class InvestoreDB extends SQLiteOpenHelper {
 
         sqLiteDatabase.update(TABLE_NAME, contentValues, whereClause, whereArgs);
     }
-
-    public void logAllItems() {
-        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        Log.d(TAG, "logAllItems: Cursor: \n" + DatabaseUtils.dumpCursorToString(cursor));
-    }
 }

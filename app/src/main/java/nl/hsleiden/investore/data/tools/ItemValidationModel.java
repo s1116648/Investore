@@ -29,7 +29,7 @@ public class ItemValidationModel {
 
     public boolean priceIsValid(String price) {
         try {
-            double priceInDouble = Double.parseDouble(price);
+            Double.parseDouble(price);
             return (true);
         } catch (Exception e) {
             return false;

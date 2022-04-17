@@ -43,10 +43,8 @@ public class StatisticsFragment extends Fragment {
         if (checkLoggedIn()) {
             initialiseVariables();
             setUpStatisticFields();
-        } else {
-            boolean loggedIn = false;
-            updateUI(loggedIn);
         }
+
         return root;
     }
 
@@ -57,10 +55,6 @@ public class StatisticsFragment extends Fragment {
         }
         this.account = account;
         return true;
-    }
-
-    private void updateUI(Boolean loggedIn) {
-        // ToDo
     }
 
     private GoogleSignInAccount getAccount() {
@@ -78,7 +72,7 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void initialiseCurrency() {
-        currency = "€"; // ToDo not hardcode currency
+        currency = "€";
     }
 
     private void loadDatabase() {

@@ -95,7 +95,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
 
         private void initialiseCurrency() {
-            currency = "€"; // ToDo not hardcode currency
+            currency = "€";
         }
 
         private void setUpSoldData(Item item) {

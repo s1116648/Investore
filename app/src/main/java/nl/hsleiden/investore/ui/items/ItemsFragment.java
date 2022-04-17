@@ -3,7 +3,6 @@ package nl.hsleiden.investore.ui.items;
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
-import nl.hsleiden.investore.data.FirebaseListener;
 import nl.hsleiden.investore.data.database.FirebaseService;
 import nl.hsleiden.investore.data.database.InvestoreDB;
 import nl.hsleiden.investore.data.model.Item;
 import nl.hsleiden.investore.databinding.FragmentItemsBinding;
 
-public class ItemsFragment extends Fragment implements FirebaseListener {
+public class ItemsFragment extends Fragment {
     private FragmentItemsBinding binding;
 
     private InvestoreDB investoreDB;
@@ -48,15 +45,6 @@ public class ItemsFragment extends Fragment implements FirebaseListener {
         if (checkLoggedIn()) {loadDatabase();
             setItemInfoFromDB();
             setAdapter();
-
-            loadFirebase();
-            // Test
-            setupEventListener("testPath");
-
-            Log.d(TAG, "onCreateView: kaasjes!");
-        } else {
-            boolean loggedIn = false;
-            updateUI(loggedIn);
         }
 
         return root;
@@ -71,10 +59,6 @@ public class ItemsFragment extends Fragment implements FirebaseListener {
         return true;
     }
 
-    private void updateUI(Boolean loggedIn) {
-        // ToDo
-    }
-
     private GoogleSignInAccount getAccount() {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
@@ -85,20 +69,6 @@ public class ItemsFragment extends Fragment implements FirebaseListener {
         if (investoreDB == null) {
             investoreDB = new InvestoreDB(binding.getRoot().getContext(), account.getEmail());
         }
-    }
-
-    private void loadFirebase() {
-        firebaseService = new FirebaseService();
-    }
-
-    @Override
-    public void setupEventListener(String referencePath) {
-        firebaseService.setUpEventListener(referencePath, this);
-    }
-
-    @Override
-    public void receiveSnapshot(DataSnapshot snapshot) {
-        Log.d(TAG, "receiveSnapshot: Hoh, I recieved it: " + snapshot);
     }
 
     private void setAdapter() {

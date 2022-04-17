@@ -131,14 +131,12 @@ public class NavigationActivity extends AppCompatActivity {
             NavigationView navigationView = findViewById(R.id.nav_view);
             TextView textView = navigationView.getHeaderView(0).findViewById(R.id.nav_header_account_mail);
             textView.setVisibility(View.VISIBLE);
-            // ToDo
         } else {
             // Puts account mail in header of navigation
             NavigationView navigationView = findViewById(R.id.nav_view);
             TextView textView = navigationView.getHeaderView(0).findViewById(R.id.nav_header_account_mail);
             textView.setVisibility(View.VISIBLE);
             textView.setText(account.getEmail());
-            // ToDo
         }
     }
 

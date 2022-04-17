@@ -112,7 +112,6 @@ public class Item {
         return sellPrice;
     }
 
-
     public void setSellPrice(int sellPrice) {
         this.sellPrice = sellPrice;
     }

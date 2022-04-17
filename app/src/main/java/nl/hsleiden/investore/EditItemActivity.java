@@ -75,9 +75,6 @@ public class EditItemActivity
         if (checkLoggedIn()) {
             loadDatabase();
             assignVariables();
-        } else {
-            boolean loggedIn = false;
-            updateUI(loggedIn);
         }
     }
 
@@ -88,10 +85,6 @@ public class EditItemActivity
         }
         this.account = account;
         return true;
-    }
-
-    private void updateUI(Boolean loggedIn) {
-        // ToDo
     }
 
     private GoogleSignInAccount getAccount() {
@@ -159,7 +152,7 @@ public class EditItemActivity
     }
 
     private void initialiseCurrency() {
-        currency = "€"; // ToDo not hardcode currency
+        currency = "€";
     }
 
     private String getItemIdFromExtras() {
@@ -179,7 +172,6 @@ public class EditItemActivity
             public void onClick(View view) {
                 if(fieldsAreValid()) {
                     Item item = generateItemFromInputs();
-                    Log.d(TAG, "onClick: itemFromInputs: " + item.toString());
                     investoreDB.updateItem(item);
                     toastEditedSuccess();
                     goToNavigationView();
@@ -227,7 +219,6 @@ public class EditItemActivity
     }
 
     public void receiveDate(String date) {
-        Log.d(TAG, "receiveDate: datePickerDate: " + datePickerDate);
         switch (datePickerDate) {
             case ENTRY_DATE:
                 binding.editEntryDate.setText(date);
@@ -268,7 +259,6 @@ public class EditItemActivity
         binding.editItemBuyPrice.setTextColor(editBuyPriceColor);
 
         if (allSellFieldsAreEmpty()) {
-            Log.d(TAG, "fieldsAreValid: allSellFieldsAreEmpty(): " + allSellFieldsAreEmpty());
             return isValid;
         }
 
@@ -310,7 +300,6 @@ public class EditItemActivity
         double itemBuyPrice = Double.parseDouble(editBuyPrice.getText().toString());
         String itemNotes = editNotes.getText().toString();
         if (allSellFieldsAreEmpty()) {
-            Log.d(TAG, "generateItemFromInputs: not sold item");
             return new Item(itemId, itemName, itemNotes, itemEntryDate, itemBuyPrice);
         }
         String itemSellDate = editSellDate.getText().toString();
