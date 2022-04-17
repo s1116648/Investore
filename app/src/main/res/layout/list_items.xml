@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -22,7 +21,7 @@
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
         android:padding="4dp"
-        android:text="item name"
+        android:text="@string/item_name_holder"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toStartOf="@+id/profit"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +32,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="item notes"
+        android:text="@string/item_notes_holder"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +43,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="Buy date: "
+        android:text="@string/buy_date"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_notes" />
@@ -54,7 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="entry date"
+        android:text="@string/buy_date_holder"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toEndOf="@+id/entry_date"
         app:layout_constraintTop_toBottomOf="@+id/item_notes" />
@@ -64,7 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="Buy price: "
+        android:text="@string/buy_price"
         app:layout_constraintStart_toEndOf="@+id/item_entry_date"
         app:layout_constraintTop_toBottomOf="@+id/item_notes" />
 
@@ -73,7 +72,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="buy price"
+        android:text="@string/buy_price_holder"
         android:textColor="#F44336"
         app:layout_constraintStart_toEndOf="@+id/buy_price"
         app:layout_constraintTop_toBottomOf="@+id/item_notes" />
@@ -83,7 +82,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="Sell date: "
+        android:text="@string/sell_date"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +93,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="sell date"
+        android:text="@string/sell_date_holder"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +105,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="Sell price: "
+        android:text="@string/sell_price"
         app:layout_constraintStart_toEndOf="@+id/item_entry_date"
         app:layout_constraintTop_toBottomOf="@+id/buy_price" />
 
@@ -115,7 +114,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="sell price"
+        android:text="@string/sell_price_holder"
         android:textColor="#4CAF50"
         app:layout_constraintStart_toEndOf="@+id/sell_price"
         app:layout_constraintTop_toBottomOf="@+id/item_buy_price" />
@@ -133,7 +132,7 @@
         android:layout_width="wrap_content"
         android:padding="2dp"
         android:layout_height="wrap_content"
-        android:text="€[profit]"
+        android:text="@string/profit_holder"
         app:layout_constraintBottom_toTopOf="@+id/item_notes"
         app:layout_constraintEnd_toStartOf="@+id/item_profit_percentage" />
 
@@ -142,7 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="2dp"
-        android:text="[profitPercentage]%"
+        android:text="@string/profit_percentage_holder"
         app:layout_constraintBottom_toTopOf="@+id/item_notes"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -150,7 +149,7 @@
         android:id="@+id/profit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profit:"
+        android:text="@string/profit"
         android:padding="2dp"
         app:layout_constraintBottom_toTopOf="@+id/item_notes"
         app:layout_constraintEnd_toStartOf="@+id/item_profit" />

@@ -1,14 +1,6 @@
 <resources>
     <string name="app_name">Investore</string>
-    <string name="title_activity_list">ListActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -21,34 +13,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_items">Items</string>
     <string name="menu_statistics">Statistics</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_settings">SettingsActivity</string>
 
-    <!-- Home Activity -->
-    <string name="login_instructions">Press the ⋮ on the top to login</string>
-
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="date_format">dd-MM-yyyy</string>
@@ -60,12 +26,17 @@
     <string name="item_successfully_deleted">item is deleted</string>
     <string name="item_failure_failure">couldn\'t edit the item</string>
     <string name="pick_date">pick date</string>
+
+    <!--  fragment_home  -->
+    <string name="login_instructions">Press the ⋮ on the top to login</string>
     <string name="login_required">Please login first</string>
     <string name="home_instructions">Click on the ☰ to navigate or the + to add an item</string>
     <string name="home_import">Export</string>
     <string name="export">Import</string>
     <string name="home_cloud_options">Cloud options</string>
     <string name="items_exported">items exported</string>
+
+    <!--  add and edit item activities  -->
     <string name="optional">(optional)</string>
     <string name="submit">submit</string>
     <string name="buy_price">Buy price:</string>
@@ -77,4 +48,28 @@
     <string name="sell_price">Sell price</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+
+    <!--  fragment_statistics.xml  -->
+    <string name="total_profit">Total profit:</string>
+    <string name="total_profit_holder">[total_profit]</string>
+    <string name="average_percentage">Average percentage:</string>
+    <string name="average_percentage_holder">[average_percentage]</string>
+    <string name="total_sold_profit">Total sold profit:</string>
+    <string name="total_sold_profit_holder">[total_sold_profit]</string>
+    <string name="average_sold_percentage">Average sold percentage:</string>
+    <string name="average_sold_percentage_holder">[average_sold_percentage]</string>
+    <string name="number_of_items">Items:</string>
+    <string name="number_of_items_holder">[item_count]</string>
+    <string name="number_of_sold_items">Sold items:</string>
+    <string name="number_of_sold_items_holder">[sold_item_count]</string>
+    <string name="item_name_holder">[item name]</string>
+    <string name="item_notes_holder">[item notes]</string>
+    <string name="buy_date_holder">[buy_date]</string>
+    <string name="buy_price_holder">[buy_price]</string>
+    <string name="sell_date_holder">[sell_date]</string>
+    <string name="sell_price_holder">[sell_price]</string>
+    <string name="profit_holder">€[profit]</string>
+    <string name="profit_percentage_holder">[profitPercentage]%</string>
+    <string name="profit">Profit:</string>
+    <string name="add_button_description">Click here to add an item</string>
 </resources>
